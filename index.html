@@ -6,7 +6,7 @@
 
   <title>Naples Jewelry Buyers | Naples' Top Gold, Silver &amp; Jewelry Buyers</title>
   <meta name="description" content="Naples Jewelry Buyers pays top dollar for gold, silver, coins, and estate jewelry. Fast and honest — we come to you anywhere in Naples. Send photos for a free offer or call (239) 404-8505." />
-  <meta name="keywords" content="gold buyer naples fl, sell gold naples florida, silver buyer naples, coin buyer naples fl, estate jewelry buyer naples, sell jewelry naples, gold buyer marco island, gold buyer bonita springs, gold buyer estero fl, gold buyer fort myers, gold buyer cape coral, sell gold collier county, sell gold lee county, mobile gold buyer southwest florida, cash for gold naples" />
+  <meta name="keywords" content="gold buyer naples fl, sell gold naples florida, silver buyer naples, coin buyer naples fl, estate jewelry buyer naples, sell jewelry naples, gold buyer marco island, gold buyer bonita springs, gold buyer estero fl, gold buyer fort myers, gold buyer cape coral, sell gold collier county, sell gold lee county, in-home jewelry buyer southwest florida, cash for gold naples" />
   <meta name="geo.region"    content="US-FL" />
   <meta name="geo.placename" content="Naples, FL" />
   <meta name="geo.position"  content="26.1420;-81.7948" />
@@ -37,7 +37,7 @@
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Naples Jewelry Buyers",
-    "description": "Mobile gold, silver, coin, and estate jewelry buying service serving Naples and all of Southwest Florida. We come to you for fast, honest offers.",
+    "description": "On-site gold, silver, coin, and estate jewelry buying service serving Naples and all of Southwest Florida. We come to you for fast, honest offers.",
     "url": "https://NaplesJewelryBuyers.com",
     "telephone": "+12394048505",
     "priceRange": "$$",
@@ -70,7 +70,7 @@
       "Silver Buying",
       "Coin Buying",
       "Estate Jewelry Buying",
-      "Mobile Buying Service"
+      "On-Site Buying Service"
     ],
     "sameAs": [
       "https://NaplesJewelryBuyers.com"
@@ -224,12 +224,12 @@
     }
     .particle-magic canvas { display: block; }
 
-    /* Mobile-only portal tag under the h1 */
-    .mobile-portal-tag {
-      display: none;
+    /* Desktop portal tag — anchored by JS to the canvas text bottom */
+    .desktop-portal-tag {
       position: absolute;
-      left: 0; right: 0;
-      z-index: 2;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
       text-align: center;
       font-family: 'Lato', sans-serif;
       font-size: 11px;
@@ -238,6 +238,31 @@
       text-transform: uppercase;
       color: var(--gold-light);
       pointer-events: none;
+      white-space: nowrap;
+    }
+
+    /* Mobile title wrapper — absolutely positioned block that stacks h1 + tag naturally */
+    .mobile-title-block {
+      display: none;
+      position: absolute;
+      top: 10vh;
+      left: 0; right: 0;
+      z-index: 2;
+      text-align: center;
+      padding: 0 20px;
+      pointer-events: none;
+    }
+
+    /* Portal tag flows inside the wrapper — no absolute positioning needed */
+    .mobile-portal-tag {
+      display: none;
+      font-family: 'Lato', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-top: 10px;
     }
 
     /* Cinzel text title — mobile fallback (hidden on desktop) */
@@ -709,17 +734,17 @@
 
       /* Swap titles: hide particles, show Cinzel */
       .particle-magic { display: none; }
+      .desktop-portal-tag { display: none; }
+      .mobile-title-block { display: block; }
       h1.floattext-title {
         display: block;
+        position: static;
         font-size: clamp(24px, 8.5vw, 44px);
-        top: 10vh;
         letter-spacing: .10em;
-        padding: 0 20px;
+        padding: 0;
+        top: auto;
       }
-      .mobile-portal-tag {
-        display: block;
-        top: calc(10vh + 81px);
-      }
+      .mobile-portal-tag { display: block; }
 
       .hero-spacer { flex-basis: 25vh !important; min-height: 25vh !important; }
       .hero-sub { font-size: 15px; margin-bottom: 4px; white-space: normal; max-width: 320px; margin-left: auto; margin-right: auto; }
@@ -800,8 +825,11 @@
 
   <!-- HERO -->
   <section class="hero">
-    <h1 class="floattext-title">Naples Jewelry Buyers</h1>
-    <p class="mobile-portal-tag">Photo Submission Portal</p>
+    <div class="mobile-title-block">
+      <h1 class="floattext-title">Naples Jewelry Buyers</h1>
+      <p class="mobile-portal-tag">Photo Submission Portal</p>
+    </div>
+    <p class="desktop-portal-tag">Photo Submission Portal</p>
     <div id="magic" class="particle-magic"></div>
     <div class="hero-spacer" style="flex:0 0 46vh;min-height:46vh;"></div>
     <div class="container" style="position:relative;z-index:3;padding-bottom:60px;">
@@ -809,11 +837,11 @@
         <p class="hero-sub" style="text-shadow:0 2px 16px rgba(0,0,0,0.9);">Send photos below for a fast, honest offer on your gold, silver, coins, and estate jewelry.</p>
         <!-- INLINE PHOTO ESTIMATE -->
         <div id="get-estimate" style="margin-top:32px;">
-          <form id="estimateForm" name="estimate-request" method="POST"
+          <form id="estimateForm" name="jewelry-photo-estimate" method="POST"
                 enctype="multipart/form-data" data-netlify="true"
                 netlify-honeypot="bot-field">
 
-            <input type="hidden" name="form-name" value="estimate-request">
+            <input type="hidden" name="form-name" value="jewelry-photo-estimate">
             <p hidden><label>Don't fill this out: <input name="bot-field"></label></p>
 
             <div class="upload-zone" id="uploadZone">
@@ -1013,7 +1041,7 @@
   <!-- FOOTER -->
   <footer>
     <span class="footer-logo">Naples <span>Jewelry Buyers</span></span>
-    <p>Licensed &bull; Professional &bull; Local &bull; Mobile Service &bull; Southwest Florida</p>
+    <p>Licensed &bull; Professional &bull; Local &bull; We Come To You &bull; Southwest Florida</p>
     <p style="margin-top:8px;">
       <a href="tel:+12394048505">(239) 404-8505</a>
       &nbsp;&bull;&nbsp;
@@ -1350,10 +1378,12 @@
         positionAnnotation();
       });
 
+      positionAnnotation();
       var lastFrameTime = 0;
       renderer.setAnimationLoop(function(now) {
         if (now - lastFrameTime < 32) return;
         lastFrameTime = now;
+        if (!portalPositioned) { positionAnnotation(); portalPositioned = true; }
         render(mouseInHero);
       });
     }
@@ -1477,6 +1507,8 @@
       }
       var geoParticles = new THREE.BufferGeometry().setFromPoints(thePoints);
       geoParticles.translate(xMid, yMid + 36, 0);
+      geoParticles.computeBoundingBox();
+      textBBox = geoParticles.boundingBox.clone();
       geoParticles.setAttribute('customColor', new THREE.Float32BufferAttribute(colors, 3));
       geoParticles.setAttribute('size', new THREE.Float32BufferAttribute(sizes, 1));
       var material = new THREE.ShaderMaterial({
@@ -1503,11 +1535,15 @@
     }
     function visibleWidthAtZ(depth) { return visibleHeightAtZ(depth) * camera.aspect; }
 
-    var annotEl = document.querySelector('.hero-annotation');
+    var textBBox = null;
+    var portalPositioned = false;
+    var desktopPortalEl = document.querySelector('.desktop-portal-tag');
     function positionAnnotation() {
-      if (!annotEl) return;
-      annotEl.style.top = Math.round(container.clientHeight * 0.178) + 'px';
+      if (!desktopPortalEl) return;
+      // Text center ~27% down the full canvas height; tag sits just below text bottom
+      desktopPortalEl.style.top = Math.round(container.clientHeight * 0.27) + 'px';
     }
+    window.addEventListener('resize', positionAnnotation);
 
     var manager = new THREE.LoadingManager();
     var loadedFont, loadedTexture;
