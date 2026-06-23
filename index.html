@@ -104,7 +104,7 @@
       --border:     #DDDAD4;
     }
 
-    html { background: #0d0d10; will-change: scroll-position; }
+    html { background: #0d0d10; will-change: scroll-position; overflow-x: hidden; }
 
     body {
       font-family: 'Lato', sans-serif;
@@ -112,6 +112,7 @@
       color: #fff;
       background: transparent;
       line-height: 1.7;
+      overflow-x: hidden;
     }
 
     /* ── UTILITY ── */
@@ -308,12 +309,13 @@
     }
     .hero h1 em { font-style: normal; color: var(--gold-light); }
     .hero-sub {
-      font-size: 18px;
+      font-size: clamp(15px, 2.5vw, 18px);
       color: rgba(255,255,255,0.80);
-      white-space: nowrap;
       margin-bottom: 36px;
       line-height: 1.7;
       text-align: center;
+      max-width: 600px;
+      overflow-wrap: break-word;
     }
     .hero-cta {
       display: flex;
@@ -811,9 +813,89 @@
       .nav-logo { font-size: 13px; }
       .items-grid { grid-template-columns: 1fr; }
     }
+
+    /* ── TABLET (601px – 899px): swap particle canvas → CSS text title ── */
+    @media (min-width: 601px) and (max-width: 899px) {
+      .particle-magic     { display: none; }
+      .desktop-portal-tag { display: none; }
+      .mobile-title-block { display: block; }
+      .mobile-portal-tag  { display: block; }
+      h1.floattext-title {
+        display: block;
+        position: static;
+        font-size: clamp(32px, 5.8vw, 56px);
+        letter-spacing: .12em;
+        padding: 0 24px;
+        top: auto;
+        line-height: 1.2;
+      }
+      .hero-spacer { flex-basis: 32vh !important; min-height: 32vh !important; }
+      .hero { padding-top: 60px; }
+      .hero-sub { max-width: 540px; margin-left: auto; margin-right: auto; }
+      .hero-cta { flex-wrap: wrap; gap: 14px; }
+      .hero-cta .btn { padding: 15px 28px; font-size: 14px; }
+      .hero-cross-sell-btn {
+        display: block !important;
+        width: 100% !important;
+        padding: 18px 32px !important;
+        font-size: 15px !important;
+        letter-spacing: 0.8px !important;
+        text-align: center !important;
+      }
+      .section  { padding: 64px 0; }
+      .items-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+      .modal-box { padding: 40px 32px 32px; }
+    }
+
+    /* ── LARGE DESKTOP (≥ 1440px) ── */
+    @media (min-width: 1440px) {
+      .container { max-width: 1200px; }
+      .nav-inner { max-width: 1200px; }
+      .section   { padding: 96px 0; }
+    }
+
+    /* ── ULTRAWIDE (≥ 1920px) ── */
+    @media (min-width: 1920px) {
+      .container { max-width: 1400px; }
+      .nav-inner { max-width: 1400px; }
+    }
+
+    /* ── PAGE LOADER ── */
+    #page-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #0d0d10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.55s ease, visibility 0.55s ease;
+    }
+    #page-loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    #loader-spinner {
+      width: 36px;
+      height: 36px;
+      border: 2.5px solid rgba(201, 151, 43, 0.20);
+      border-top-color: #C9972B;
+      border-radius: 50%;
+      animation: loader-spin 0.8s linear infinite;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+    #loader-spinner.active { opacity: 1; }
+    @keyframes loader-spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
+
+  <!-- PAGE LOADER -->
+  <div id="page-loader" role="status" aria-label="Loading">
+    <div id="loader-spinner"></div>
+  </div>
 
   <!-- WEBGL BACKGROUND -->
   <canvas id="webgl_canvas" style="position:fixed;top:0;left:0;z-index:-1;pointer-events:none;"></canvas>
@@ -883,7 +965,7 @@
             <input type="hidden" name="item_type" id="formType" value="">
             <input type="hidden" name="notes" id="formNotes" value="">
 
-            <div id="uploadActions" style="margin-top:24px;text-align:center;">
+            <div id="uploadActions" style="margin-top:24px;text-align:center;display:none;">
               <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;">
                 <button type="submit" class="btn btn-gold" id="submitBtn">
                   Send
@@ -1343,7 +1425,7 @@
   (function() {
     var container = document.querySelector('#magic');
     if (!container || typeof THREE === 'undefined') return;
-    if (window.innerWidth < 600) return;
+    if (window.innerWidth < 900) return;
 
     var scene, camera, renderer, particles, geometryCopy, planeArea;
     var mouse = new THREE.Vector2(-200, 200);
@@ -1399,9 +1481,14 @@
 
       positionAnnotation();
       var lastFrameTime = 0;
+      var loaderReadyFired = false;
       renderer.setAnimationLoop(function(now) {
         if (now - lastFrameTime < 32) return;
         lastFrameTime = now;
+        if (!loaderReadyFired) {
+          loaderReadyFired = true;
+          window.dispatchEvent(new CustomEvent('canvas-ready'));
+        }
         if (!portalPositioned) { positionAnnotation(); portalPositioned = true; }
         render(mouseInHero);
       });
@@ -1575,6 +1662,55 @@
       'https://res.cloudinary.com/dfvtkoboz/image/upload/v1605013866/particle_a64uzf.png'
     );
   })();
+  </script>
+
+  <!-- Loader control: reveal page when canvas is ready (desktop) or on load+fonts (mobile) -->
+  <script>
+  (function () {
+    var loader  = document.getElementById('page-loader');
+    var spinner = document.getElementById('loader-spinner');
+    if (!loader) return;
+
+    var revealed = false;
+
+    // Show spinner only if loading takes more than 500 ms
+    var spinnerTimer = setTimeout(function () {
+      if (!revealed) spinner.classList.add('active');
+    }, 500);
+
+    function reveal() {
+      if (revealed) return;
+      revealed = true;
+      clearTimeout(spinnerTimer);
+      spinner.classList.remove('active');
+      loader.classList.add('hidden');
+      // Remove element from DOM after transition completes
+      setTimeout(function () {
+        if (loader && loader.parentNode) loader.parentNode.removeChild(loader);
+      }, 620);
+    }
+
+    if (window.innerWidth >= 900) {
+      // Desktop: wait for Three.js to render its first particle frame
+      window.addEventListener('canvas-ready', reveal, { once: true });
+      // Safety net: if CDN is slow or fails, reveal 5 s after page load at most
+      window.addEventListener('load', function () {
+        setTimeout(reveal, 5000);
+      }, { once: true });
+    } else {
+      // Mobile / tablet: reveal after all assets and web fonts are ready
+      function onReady() {
+        document.fonts.ready.then(function () {
+          setTimeout(reveal, 120);
+        });
+      }
+      if (document.readyState === 'complete') {
+        onReady();
+      } else {
+        window.addEventListener('load', onReady, { once: true });
+      }
+    }
+  }());
   </script>
 </body>
 </html>
