@@ -388,47 +388,88 @@ const mkShader = (type, src) => {
   return s;
 };
 
-const vert = mkShader(gl.VERTEX_SHADER, vs);
-const frag = mkShader(gl.FRAGMENT_SHADER, fs);
+// All of the below are (re)created by setupGLResources() — both on first load
+// and whenever the WebGL context is restored after being lost (a common event
+// on mobile Safari under memory pressure, e.g. while uploading photos). Without
+// this, a lost context would permanently leave the animated background blank.
+let prog, buf, ap, uR, uTi, uScroll, uScene, uBlend, uBg;
+let contextValid = true;
 
-if (!vert || !frag) {
-  throw new Error("Shader compilation failed");
+const setupGLResources = () => {
+  const vert = mkShader(gl.VERTEX_SHADER, vs);
+  const frag = mkShader(gl.FRAGMENT_SHADER, fs);
+
+  if (!vert || !frag) {
+    console.error("Shader compilation failed");
+    return false;
+  }
+
+  prog = gl.createProgram();
+  gl.attachShader(prog, vert);
+  gl.attachShader(prog, frag);
+  gl.linkProgram(prog);
+
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+    console.error(gl.getProgramInfoLog(prog));
+    return false;
+  }
+
+  gl.useProgram(prog);
+  gl.disable(gl.DEPTH_TEST);
+  gl.disable(gl.CULL_FACE);
+  gl.disable(gl.BLEND);
+  gl.disable(gl.DITHER);
+
+  buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(
+    gl.ARRAY_BUFFER,
+    new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]),
+    gl.STATIC_DRAW
+  );
+
+  ap = gl.getAttribLocation(prog, "a");
+  gl.enableVertexAttribArray(ap);
+  gl.vertexAttribPointer(ap, 2, gl.FLOAT, false, 0, 0);
+
+  uR = gl.getUniformLocation(prog, "uR");
+  uTi = gl.getUniformLocation(prog, "uT");
+  uScroll = gl.getUniformLocation(prog, "uS");
+  uScene = gl.getUniformLocation(prog, "uSc");
+  uBlend = gl.getUniformLocation(prog, "uBl");
+  uBg = gl.getUniformLocation(prog, "uBg");
+
+  return true;
+};
+
+if (!setupGLResources()) {
+  throw new Error("Initial WebGL setup failed");
 }
 
-const prog = gl.createProgram();
-gl.attachShader(prog, vert);
-gl.attachShader(prog, frag);
-gl.linkProgram(prog);
-
-if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
-  console.error(gl.getProgramInfoLog(prog));
-  throw new Error("Program linking failed");
-}
-
-gl.useProgram(prog);
-gl.disable(gl.DEPTH_TEST);
-gl.disable(gl.CULL_FACE);
-gl.disable(gl.BLEND);
-gl.disable(gl.DITHER);
-
-const buf = gl.createBuffer();
-gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-gl.bufferData(
-  gl.ARRAY_BUFFER,
-  new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]),
-  gl.STATIC_DRAW
+canvas.addEventListener(
+  "webglcontextlost",
+  (e) => {
+    e.preventDefault();
+    contextValid = false;
+  },
+  false
 );
 
-const ap = gl.getAttribLocation(prog, "a");
-gl.enableVertexAttribArray(ap);
-gl.vertexAttribPointer(ap, 2, gl.FLOAT, false, 0, 0);
-
-const uR = gl.getUniformLocation(prog, "uR");
-const uTi = gl.getUniformLocation(prog, "uT");
-const uScroll = gl.getUniformLocation(prog, "uS");
-const uScene = gl.getUniformLocation(prog, "uSc");
-const uBlend = gl.getUniformLocation(prog, "uBl");
-const uBg = gl.getUniformLocation(prog, "uBg");
+canvas.addEventListener(
+  "webglcontextrestored",
+  () => {
+    contextValid = setupGLResources();
+    if (contextValid) {
+      updateBg(getActiveTheme());
+      // Force resize()'s dimension check to see a change so it actually
+      // redraws immediately, even if the CSS/pixel size hasn't changed.
+      canvas.width = 0;
+      canvas.height = 0;
+      requestResize();
+    }
+  },
+  false
+);
 
 const hexToVec3 = (hex) => {
   const n = parseInt(hex.replace("#", ""), 16);
@@ -506,16 +547,33 @@ const updateScrollMetrics = () => {
   tgt = initialVisualScroll + pageProgress * (1 - initialVisualScroll);
 };
 
+// Overshoot past both viewport edges so the fixed background always covers,
+// even while iOS/iPadOS Safari's toolbars animate in/out and the reported
+// height briefly lags. It's a z-index:-1 / pointer-events:none layer, so the
+// bleed is invisible and simply guarantees full coverage.
+const BG_OVERSHOOT = 150;
+
 const resize = () => {
   resizeRAF = 0;
 
-  const vp = window.visualViewport ?? {
-    width: window.innerWidth,
-    height: window.innerHeight
-  };
+  // Size the canvas box explicitly from JS instead of CSS viewport units.
+  // CSS units (vh/dvh/lvh/svh) proved unreliable on iPadOS Safari (100lvh
+  // resolved to ~467px on a 1303px viewport). window.innerHeight is accurate
+  // and stable, so we use the largest reliable height signal available and
+  // bleed past both edges.
+  const viewportH = Math.max(
+    window.innerHeight || 0,
+    document.documentElement.clientHeight || 0,
+    window.visualViewport ? window.visualViewport.height : 0
+  );
+  if (viewportH) {
+    canvas.style.top = -BG_OVERSHOOT + "px";
+    canvas.style.height = viewportH + BG_OVERSHOOT * 2 + "px";
+  }
 
-  const cssW = Math.round(vp.width);
-  const cssH = Math.round(vp.height);
+  const rect = canvas.getBoundingClientRect();
+  const cssW = Math.round(rect.width);
+  const cssH = Math.round(rect.height);
 
   if (!cssW || !cssH) return;
 
@@ -528,15 +586,16 @@ const resize = () => {
   const pixelW = Math.max(1, Math.round(cssW * renderScale));
   const pixelH = Math.max(1, Math.round(cssH * renderScale));
 
-  canvas.style.width = `${cssW}px`;
-  canvas.style.height = `${cssH}px`;
-
-  if (canvas.width !== pixelW || canvas.height !== pixelH) {
+  const bufferChanged = canvas.width !== pixelW || canvas.height !== pixelH;
+  if (bufferChanged) {
     canvas.width = pixelW;
     canvas.height = pixelH;
-    gl.viewport(0, 0, pixelW, pixelH);
-    gl.uniform2f(uR, pixelW, pixelH);
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+    if (contextValid) {
+      gl.viewport(0, 0, pixelW, pixelH);
+      gl.uniform2f(uR, pixelW, pixelH);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    }
   }
 
   updateScrollMetrics();
@@ -555,7 +614,16 @@ if (window.visualViewport) {
   });
 }
 
-window.addEventListener("scroll", updateScrollMetrics, { passive: true });
+window.addEventListener(
+  "scroll",
+  () => {
+    updateScrollMetrics();
+    // The iOS/iPadOS toolbar collapses during scroll, changing innerHeight;
+    // re-measure so the background keeps covering the visible viewport.
+    requestResize();
+  },
+  { passive: true }
+);
 
 window.addEventListener("load", updateScrollMetrics, { passive: true });
 
@@ -765,6 +833,8 @@ const frame = (now) => {
   const bl = raw - si;
 
   updateHUD(smooth);
+
+  if (!contextValid) return;
 
   gl.uniform1f(uTi, (now - t0) / 1000);
   gl.uniform1f(uScroll, smooth);

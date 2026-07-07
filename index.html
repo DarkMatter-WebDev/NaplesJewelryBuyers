@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <!-- Tints the mobile browser toolbar/status-bar so it blends with the sky at
+       the top of the page. Updated on scroll (see theme-color sync script) to
+       track the changing scene. Starts at the top-of-page (midday) sky blue. -->
+  <meta name="theme-color" content="#5a78a5" />
 
   <title>We Buy Jewelry, Gold &amp; Silver in Naples FL | Naples Jewelry Buyers — Estate Jewelry, Gold, Silver &amp; Coins</title>
   <meta name="description" content="We buy estate jewelry, diamonds, gold, silver &amp; coins — top dollar paid, no pressure. Naples Jewelry Buyers comes to you anywhere in Naples, Marco Island, Bonita Springs &amp; Southwest Florida. Free offer — call (239) 404-8505." />
@@ -104,7 +108,11 @@
       --border:     #DDDAD4;
     }
 
-    html { background: #0d0d10; will-change: scroll-position; overflow-x: hidden; }
+    html {
+      background: #0d0d10;
+      will-change: scroll-position;
+      overflow-x: hidden;
+    }
 
     body {
       font-family: 'Lato', sans-serif;
@@ -113,6 +121,9 @@
       background: transparent;
       line-height: 1.7;
       overflow-x: hidden;
+      /* Keep scrollable content clear of the iOS home indicator / collapsed
+         bottom toolbar area (viewport-fit=cover lets content extend there). */
+      padding-bottom: env(safe-area-inset-bottom, 0px);
     }
 
     /* ── UTILITY ── */
@@ -175,7 +186,11 @@
       top: 0; left: 0; right: 0;
       z-index: 100;
       background: transparent;
-      padding: 0 24px;
+      /* viewport-fit=cover lets content slide under the top notch/status bar;
+         keep the nav below it, and inside the left/right safe areas. */
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-left: max(24px, env(safe-area-inset-left, 0px));
+      padding-right: max(24px, env(safe-area-inset-right, 0px));
     }
     .nav-inner {
       max-width: 1100px;
@@ -280,6 +295,26 @@
       margin: 0 auto;
       background: transparent;
       pointer-events: none;
+    }
+
+    /* WebGL background — must always fill the *visible* viewport, including as
+       iOS Safari's collapsible toolbars animate in/out. CSS viewport units
+       (vh/dvh/lvh/svh) proved unreliable here: on iPadOS Safari
+       `calc(100lvh + 200px)` resolved to ~467px while the real viewport was
+       1303px, leaving huge black gaps. So the exact height/top are driven from
+       JS in sunscroll.js using window.innerHeight (which is accurate), with a
+       generous overshoot past both edges. The values below are only a fallback
+       for before JS runs / if JS fails. Do NOT add transform/will-change here:
+       on iOS a transform on a fixed element breaks its viewport sizing. */
+    #webgl_canvas {
+      position: fixed;
+      left: 0;
+      width: 100%;
+      top: -150px;
+      height: calc(100vh + 300px); /* fallback only; JS overrides top+height */
+      z-index: -1;
+      pointer-events: none;
+      display: block;
     }
 
     /* Visually hidden but still readable by search engines / screen readers */
@@ -421,7 +456,7 @@
       background: transparent;
       color: rgba(255,255,255,0.45);
       text-align: center;
-      padding: 36px 24px;
+      padding: 36px 24px calc(36px + env(safe-area-inset-bottom, 0px));
       font-size: 13px;
       line-height: 1.7;
     }
@@ -882,7 +917,7 @@
   </div>
 
   <!-- WEBGL BACKGROUND -->
-  <canvas id="webgl_canvas" style="position:fixed;top:0;left:0;z-index:-1;pointer-events:none;"></canvas>
+  <canvas id="webgl_canvas"></canvas>
 
   <!-- NAV -->
   <nav>
@@ -1394,7 +1429,7 @@
     }
   </script>
 
-  <script src="sunscroll.js"></script>
+  <script src="sunscroll.js?v=20260707b"></script>
   <script>
     window.addEventListener('load', function() {
       requestAnimationFrame(function() {
@@ -1698,5 +1733,54 @@
     }
   }());
   </script>
+
+  <!-- Sync the browser toolbar tint (theme-color) with the sky as it changes
+       down the page, so the top browser bar blends with the background instead
+       of showing a flat dark strip. Colors are hand-tuned to approximate the
+       rendered sky at each scroll depth (top=midday blue -> dusk -> night). -->
+  <script>
+  (function () {
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (!meta) return;
+
+    // [progress, [r,g,b]] stops matching the top-of-viewport sky at that scroll.
+    var STOPS = [
+      [0.00, [90, 120, 165]],  // top of page: midday blue
+      [0.45, [58, 60, 92]],    // dusk transition
+      [0.75, [26, 30, 52]],    // deep dusk / early night
+      [1.00, [18, 21, 33]]     // night / storm
+    ];
+
+    function lerp(a, b, t) { return Math.round(a + (b - a) * t); }
+    function colorFor(p) {
+      for (var i = 1; i < STOPS.length; i++) {
+        if (p <= STOPS[i][0]) {
+          var a = STOPS[i - 1], b = STOPS[i];
+          var t = (p - a[0]) / (b[0] - a[0] || 1);
+          return [lerp(a[1][0], b[1][0], t), lerp(a[1][1], b[1][1], t), lerp(a[1][2], b[1][2], t)];
+        }
+      }
+      return STOPS[STOPS.length - 1][1];
+    }
+    function toHex(c) {
+      return '#' + c.map(function (n) { return ('0' + n.toString(16)).slice(-2); }).join('');
+    }
+
+    var raf = 0;
+    function update() {
+      raf = 0;
+      var doc = document.documentElement;
+      var max = Math.max(1, doc.scrollHeight - window.innerHeight);
+      var p = Math.min(1, Math.max(0, window.scrollY / max));
+      meta.setAttribute('content', toHex(colorFor(p)));
+    }
+    function schedule() { if (!raf) raf = requestAnimationFrame(update); }
+
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule, { passive: true });
+    update();
+  }());
+  </script>
+
 </body>
 </html>
