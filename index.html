@@ -311,11 +311,13 @@
       left: 0;
       width: 100%;
       /* Fallback only; JS (sunscroll.js) overrides top+height with exact values
-         from window.innerHeight. This fallback is deliberately over-sized because
-         100vh is buggy-small on iPadOS Safari (~1003px on a 1303px viewport); a
-         tight fallback would flash a black bar at the bottom for the split second
-         before JS runs. Over-covering is invisible (z-index:-1) and gap-proof. */
-      top: -300px;
+         from window.innerHeight. Top is flush with the viewport (0) so the scene
+         is never clipped at the top. Height is deliberately over-sized (bottom
+         bleed only) because 100vh is buggy-small on iPadOS Safari (~1003px on a
+         1303px viewport); a tight fallback would flash a black bar at the bottom
+         for the split second before JS runs. The bottom over-cover is invisible
+         (z-index:-1) and gap-proof. */
+      top: 0;
       height: calc(100vh + 1400px);
       z-index: -1;
       pointer-events: none;
@@ -1434,7 +1436,7 @@
     }
   </script>
 
-  <script src="sunscroll.js?v=20260707d"></script>
+  <script src="sunscroll.js?v=20260707e"></script>
   <script>
     window.addEventListener('load', function() {
       requestAnimationFrame(function() {

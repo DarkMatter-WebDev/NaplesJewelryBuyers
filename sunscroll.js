@@ -547,11 +547,11 @@ const updateScrollMetrics = () => {
   tgt = initialVisualScroll + pageProgress * (1 - initialVisualScroll);
 };
 
-// Overshoot past both viewport edges so the fixed background always covers,
-// even while iOS/iPadOS Safari's toolbars animate in/out and the reported
-// height briefly lags. It's a z-index:-1 / pointer-events:none layer, so the
-// bleed is invisible and simply guarantees full coverage. Kept comfortably
-// larger than the iOS toolbar delta so a lagging measurement can't expose a gap.
+// Overshoot past the BOTTOM viewport edge only, so the fixed background always
+// covers as iOS/iPadOS Safari's bottom toolbar animates in/out. The TOP is left
+// flush with the viewport (top:0) — overshooting the top pushed the scene's sky
+// up out of frame and clipped it. It's a z-index:-1 / pointer-events:none layer,
+// so the bottom bleed is invisible and simply guarantees full coverage.
 const BG_OVERSHOOT = 280;
 
 const resize = () => {
@@ -568,8 +568,8 @@ const resize = () => {
     window.visualViewport ? window.visualViewport.height : 0
   );
   if (viewportH) {
-    canvas.style.top = -BG_OVERSHOOT + "px";
-    canvas.style.height = viewportH + BG_OVERSHOOT * 2 + "px";
+    canvas.style.top = "0px";
+    canvas.style.height = viewportH + BG_OVERSHOOT + "px";
   }
 
   const rect = canvas.getBoundingClientRect();
