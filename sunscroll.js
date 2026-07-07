@@ -550,8 +550,9 @@ const updateScrollMetrics = () => {
 // Overshoot past both viewport edges so the fixed background always covers,
 // even while iOS/iPadOS Safari's toolbars animate in/out and the reported
 // height briefly lags. It's a z-index:-1 / pointer-events:none layer, so the
-// bleed is invisible and simply guarantees full coverage.
-const BG_OVERSHOOT = 150;
+// bleed is invisible and simply guarantees full coverage. Kept comfortably
+// larger than the iOS toolbar delta so a lagging measurement can't expose a gap.
+const BG_OVERSHOOT = 280;
 
 const resize = () => {
   resizeRAF = 0;
@@ -626,6 +627,24 @@ window.addEventListener(
 );
 
 window.addEventListener("load", updateScrollMetrics, { passive: true });
+
+// iOS Safari animates/settles its toolbars for up to ~1s after the page becomes
+// visible, changing innerHeight without firing a scroll. Without a nudge the
+// background can briefly sit at the pre-settle (shorter) size and expose a black
+// bar at the bottom that "fills in" once a later event fires. Re-measure on a
+// short poll right after load (and once more shortly after) to close that gap.
+const settleResize = () => {
+  const times = [0, 120, 260, 450, 700, 1000, 1500];
+  times.forEach((ms) => setTimeout(requestResize, ms));
+};
+settleResize();
+window.addEventListener("load", settleResize, { passive: true });
+window.addEventListener("pageshow", settleResize, { passive: true });
+if (window.visualViewport) {
+  window.visualViewport.addEventListener("scroll", requestResize, {
+    passive: true
+  });
+}
 
 window.addEventListener(
   "wheel",
@@ -767,6 +786,7 @@ document.querySelectorAll('a[href^="#s"]').forEach((a) => {
 
 const t0 = performance.now();
 let lastNow = t0;
+let firstFrameDrawn = false;
 let fpsAccum = 0;
 let fpsFrames = 0;
 let lowFpsTime = 0;
@@ -842,6 +862,14 @@ const frame = (now) => {
   gl.uniform1f(uBlend, bl);
 
   gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+  // Signal (once) that the animated background has painted its first frame, so
+  // the loader can wait for it and never reveal an unpainted/black background.
+  if (!firstFrameDrawn) {
+    firstFrameDrawn = true;
+    window.__bgReady = true;
+    window.dispatchEvent(new CustomEvent("bg-ready"));
+  }
 };
 
 requestAnimationFrame(frame);

@@ -310,8 +310,13 @@
       position: fixed;
       left: 0;
       width: 100%;
-      top: -150px;
-      height: calc(100vh + 300px); /* fallback only; JS overrides top+height */
+      /* Fallback only; JS (sunscroll.js) overrides top+height with exact values
+         from window.innerHeight. This fallback is deliberately over-sized because
+         100vh is buggy-small on iPadOS Safari (~1003px on a 1303px viewport); a
+         tight fallback would flash a black bar at the bottom for the split second
+         before JS runs. Over-covering is invisible (z-index:-1) and gap-proof. */
+      top: -300px;
+      height: calc(100vh + 1400px);
       z-index: -1;
       pointer-events: none;
       display: block;
@@ -1429,7 +1434,7 @@
     }
   </script>
 
-  <script src="sunscroll.js?v=20260707b"></script>
+  <script src="sunscroll.js?v=20260707d"></script>
   <script>
     window.addEventListener('load', function() {
       requestAnimationFrame(function() {
@@ -1719,10 +1724,23 @@
         setTimeout(reveal, 5000);
       }, { once: true });
     } else {
-      // Mobile / tablet: reveal after all assets and web fonts are ready
+      // Mobile / tablet: reveal only once the WebGL background has painted its
+      // first frame AND web fonts are ready, so the page never appears with an
+      // unpainted background or a black bar that fills in afterwards.
+      var bgReady = false, fontsReady = false;
+      function maybeReveal() {
+        if (bgReady && fontsReady) reveal();
+      }
+      if (window.__bgReady) {
+        bgReady = true;
+      } else {
+        window.addEventListener('bg-ready', function () {
+          bgReady = true; maybeReveal();
+        }, { once: true });
+      }
       function onReady() {
         document.fonts.ready.then(function () {
-          setTimeout(reveal, 120);
+          fontsReady = true; maybeReveal();
         });
       }
       if (document.readyState === 'complete') {
@@ -1730,6 +1748,8 @@
       } else {
         window.addEventListener('load', onReady, { once: true });
       }
+      // Safety net: never leave the loader up longer than 5 s if bg-ready never fires.
+      setTimeout(reveal, 5000);
     }
   }());
   </script>
