@@ -135,8 +135,8 @@
       transition: background 0.2s, color 0.2s, transform 0.1s;
     }
     .btn:active { transform: scale(0.98); }
-    .btn-gold   { background: var(--gold); color: #fff; }
-    .btn-gold:hover { background: #b3841e; }
+    .btn-gold   { background: #D6A83A; color: #fff; }
+    .btn-gold:hover { background: var(--gold); }
     .btn-outline { background: transparent; color: var(--gold); border: 2px solid var(--gold); }
     .btn-outline:hover { background: var(--gold); color: #fff; }
     .section-label {
@@ -252,7 +252,7 @@
     .mobile-title-block {
       display: none;
       position: absolute;
-      top: 10vh;
+      top: 64px;
       left: 0; right: 0;
       z-index: 2;
       text-align: center;
@@ -269,29 +269,30 @@
       letter-spacing: 3.5px;
       text-transform: uppercase;
       color: var(--gold-light);
-      margin-top: 10px;
+      margin-top: 36px;
     }
 
-    /* Cinzel text title — mobile fallback (hidden on desktop) */
-    h1.floattext-title {
+    /* Floating logo — replaces the text title on mobile/tablet */
+    .mobile-logo {
       display: none;
-      font-family: 'Cinzel', serif !important;
-      font-size: clamp(30px, 5.2vw, 72px);
-      font-weight: 700;
-      position: absolute;
-      top: 15vh;
-      left: 0;
-      right: 0;
-      z-index: 2;
-      margin: 0;
-      padding: 0 32px;
-      text-align: center;
-      letter-spacing: .18em;
-      color: #ffffff;
+      width: min(488px, 56vw);
+      height: auto;
+      margin: 0 auto;
       background: transparent;
       pointer-events: none;
-      line-height: 1.3;
-      text-shadow: 0 2px 24px rgba(0,0,0,0.5);
+    }
+
+    /* Visually hidden but still readable by search engines / screen readers */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
 
     .hero-content {
@@ -605,7 +606,7 @@
       font-size: 26px; color: var(--gold-light); font-weight: 700;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 1024px) {
       .upload-zone { padding: 24px 16px; }
       .hide-mobile { display: none; }
       .show-mobile { display: inline; }
@@ -722,13 +723,13 @@
       width: 100%;
       height: 100%;
     }
-    @media (max-width: 600px) {
+    @media (max-width: 1024px) {
       .modal-box { padding: 40px 20px 28px; }
     }
 
 
-    /* ── MOBILE (≤ 600px) ── */
-    @media (max-width: 600px) {
+    /* ── MOBILE & TABLET (≤ 1024px) ── */
+    @media (max-width: 1024px) {
 
       /* Nav */
       nav { padding: 0 16px; }
@@ -737,24 +738,29 @@
       .nav-phone { font-size: 14px; gap: 6px; }
       .nav-phone-text { display: none; }
 
-      /* Hero */
-      .hero { padding-top: 44px; }
+      /* Hero — normal document flow (no absolute overlays / vh spacer hacks),
+         so the layout self-adjusts to whatever content height it needs and
+         nothing overlaps regardless of logo size or device height. */
+      .hero {
+        padding-top: 44px;
+        min-height: 0;
+      }
 
-      /* Swap titles: hide particles, show Cinzel */
+      /* Swap titles: hide particles, show floating logo in-flow */
       .particle-magic { display: none; }
       .desktop-portal-tag { display: none; }
-      .mobile-title-block { display: block; }
-      h1.floattext-title {
+      .hero-spacer { display: none; }
+
+      .mobile-title-block {
         display: block;
         position: static;
-        font-size: clamp(24px, 8.5vw, 44px);
-        letter-spacing: .10em;
-        padding: 0;
-        top: auto;
+        width: 100%;
+        margin: 16px 0 4px;
+        padding: 0 20px;
       }
+      .mobile-logo { display: block; }
       .mobile-portal-tag { display: block; }
 
-      .hero-spacer { flex-basis: 25vh !important; min-height: 25vh !important; }
       .hero-sub { font-size: 15px; margin-bottom: 4px; white-space: normal; max-width: 320px; margin-left: auto; margin-right: auto; }
 
       /* Collapse the label/divider above upload box — redundant in hero context */
@@ -808,43 +814,21 @@
 
     }
 
+    /* Phone-only: bigger logo with snugger side margins (tablet size unchanged) */
+    @media (max-width: 600px) {
+      .mobile-title-block { padding: 0 12px; }
+      .mobile-logo { width: min(513px, 60vw); }
+    }
+
+    /* Tablet-only: a little extra breathing room below the logo */
+    @media (min-width: 601px) and (max-width: 1024px) {
+      .mobile-portal-tag { margin-top: 84px; }
+    }
+
     /* Very narrow (≤ 380px) */
     @media (max-width: 380px) {
       .nav-logo { font-size: 13px; }
       .items-grid { grid-template-columns: 1fr; }
-    }
-
-    /* ── TABLET (601px – 899px): swap particle canvas → CSS text title ── */
-    @media (min-width: 601px) and (max-width: 899px) {
-      .particle-magic     { display: none; }
-      .desktop-portal-tag { display: none; }
-      .mobile-title-block { display: block; }
-      .mobile-portal-tag  { display: block; }
-      h1.floattext-title {
-        display: block;
-        position: static;
-        font-size: clamp(32px, 5.8vw, 56px);
-        letter-spacing: .12em;
-        padding: 0 24px;
-        top: auto;
-        line-height: 1.2;
-      }
-      .hero-spacer { flex-basis: 32vh !important; min-height: 32vh !important; }
-      .hero { padding-top: 60px; }
-      .hero-sub { max-width: 540px; margin-left: auto; margin-right: auto; }
-      .hero-cta { flex-wrap: wrap; gap: 14px; }
-      .hero-cta .btn { padding: 15px 28px; font-size: 14px; }
-      .hero-cross-sell-btn {
-        display: block !important;
-        width: 100% !important;
-        padding: 18px 32px !important;
-        font-size: 15px !important;
-        letter-spacing: 0.8px !important;
-        text-align: center !important;
-      }
-      .section  { padding: 64px 0; }
-      .items-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
-      .modal-box { padding: 40px 32px 32px; }
     }
 
     /* ── LARGE DESKTOP (≥ 1440px) ── */
@@ -914,7 +898,8 @@
   <!-- HERO -->
   <section class="hero">
     <div class="mobile-title-block">
-      <h1 class="floattext-title">Naples Jewelry Buyers</h1>
+      <img class="mobile-logo" src="logo.webp" alt="Naples Jewelry Buyers" width="583" height="476" />
+      <h1 class="sr-only">Naples Jewelry Buyers</h1>
       <p class="mobile-portal-tag">Photo Submission Portal</p>
     </div>
     <p class="desktop-portal-tag">Photo Submission Portal</p>
@@ -1425,7 +1410,7 @@
   (function() {
     var container = document.querySelector('#magic');
     if (!container || typeof THREE === 'undefined') return;
-    if (window.innerWidth < 900) return;
+    if (window.innerWidth < 1025) return;
 
     var scene, camera, renderer, particles, geometryCopy, planeArea;
     var mouse = new THREE.Vector2(-200, 200);
@@ -1647,7 +1632,8 @@
     function positionAnnotation() {
       if (!desktopPortalEl) return;
       // Text center ~27% down the full canvas height; tag sits just below text bottom
-      desktopPortalEl.style.top = Math.round(container.clientHeight * 0.27) + 'px';
+      // (+34px extra breathing room below the animated title text)
+      desktopPortalEl.style.top = (Math.round(container.clientHeight * 0.27) + 34) + 'px';
     }
     window.addEventListener('resize', positionAnnotation);
 
@@ -1690,7 +1676,7 @@
       }, 620);
     }
 
-    if (window.innerWidth >= 900) {
+    if (window.innerWidth >= 1025) {
       // Desktop: wait for Three.js to render its first particle frame
       window.addEventListener('canvas-ready', reveal, { once: true });
       // Safety net: if CDN is slow or fails, reveal 5 s after page load at most
