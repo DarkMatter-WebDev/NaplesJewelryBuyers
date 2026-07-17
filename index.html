@@ -245,49 +245,21 @@
       padding-top: 68px;
     }
 
-    /* Particle canvas — desktop title (hidden on mobile) */
-    .particle-magic {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 2;
-    }
-    .particle-magic canvas { display: block; }
-
-    /* Desktop portal tag — anchored by JS to the canvas text bottom */
-    .desktop-portal-tag {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 3;
-      text-align: center;
-      font-family: 'Lato', sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 3.5px;
-      text-transform: uppercase;
-      color: var(--gold-light);
-      pointer-events: none;
-      white-space: nowrap;
-    }
-
-    /* Mobile title wrapper — absolutely positioned block that stacks h1 + tag naturally */
+    /* Title wrapper — stacks logo + portal tag in normal document flow, used at all breakpoints */
     .mobile-title-block {
-      display: none;
-      position: absolute;
-      top: 64px;
-      left: 0; right: 0;
+      display: block;
+      position: static;
+      width: 100%;
       z-index: 2;
       text-align: center;
+      margin: 16px 0 4px;
       padding: 0 20px;
       pointer-events: none;
     }
 
     /* Portal tag flows inside the wrapper — no absolute positioning needed */
     .mobile-portal-tag {
-      display: none;
+      display: block;
       font-family: 'Lato', sans-serif;
       font-size: 11px;
       font-weight: 700;
@@ -297,9 +269,9 @@
       margin-top: 36px;
     }
 
-    /* Floating logo — replaces the text title on mobile/tablet */
+    /* Logo — the hero title image at all breakpoints */
     .mobile-logo {
-      display: none;
+      display: block;
       width: min(488px, 56vw);
       height: auto;
       margin: 0 auto;
@@ -810,21 +782,6 @@
         min-height: 0;
       }
 
-      /* Swap titles: hide particles, show floating logo in-flow */
-      .particle-magic { display: none; }
-      .desktop-portal-tag { display: none; }
-      .hero-spacer { display: none; }
-
-      .mobile-title-block {
-        display: block;
-        position: static;
-        width: 100%;
-        margin: 16px 0 4px;
-        padding: 0 20px;
-      }
-      .mobile-logo { display: block; }
-      .mobile-portal-tag { display: block; }
-
       .hero-sub { font-size: 15px; margin-bottom: 4px; white-space: normal; max-width: 320px; margin-left: auto; margin-right: auto; }
 
       /* Collapse the label/divider above upload box — redundant in hero context */
@@ -966,9 +923,6 @@
       <h1 class="sr-only">Sell Gold, Silver and Jewelry in Naples, Florida</h1>
       <p class="mobile-portal-tag">Photo Submission Portal</p>
     </div>
-    <p class="desktop-portal-tag">Photo Submission Portal</p>
-    <div id="magic" class="particle-magic"></div>
-    <div class="hero-spacer" style="flex:0 0 46vh;min-height:46vh;"></div>
     <div class="container" style="position:relative;z-index:3;padding-bottom:60px;">
       <div class="hero-content">
         <p class="hero-sub" style="text-shadow:0 2px 16px rgba(0,0,0,0.9);">Send photos below for a fast, honest offer on your gold, silver, coins, and estate jewelry.</p>
@@ -1487,30 +1441,6 @@
   })();
   </script>
 
-  <!-- Three.js particle title (desktop only) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous"></script>
-
-  <script type="x-shader/x-vertex" id="vertexshader">
-    attribute float size;
-    attribute vec3 customColor;
-    varying vec3 vColor;
-    void main() {
-      vColor = customColor;
-      vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-      gl_PointSize = size * ( 300.0 / -mvPosition.z );
-      gl_Position = projectionMatrix * mvPosition;
-    }
-  </script>
-  <script type="x-shader/x-fragment" id="fragmentshader">
-    uniform vec3 color;
-    uniform sampler2D pointTexture;
-    varying vec3 vColor;
-    void main() {
-      gl_FragColor = vec4( color * vColor, 1.0 );
-      gl_FragColor = gl_FragColor * texture2D( pointTexture, gl_PointCoord );
-    }
-  </script>
-
   <script src="sunscroll.js?v=20260707e"></script>
   <script>
     window.addEventListener('load', function() {
@@ -1523,251 +1453,7 @@
     });
   </script>
 
-  <script>
-  (function() {
-    var container = document.querySelector('#magic');
-    if (!container || typeof THREE === 'undefined') return;
-    if (window.innerWidth < 1025) return;
-
-    var scene, camera, renderer, particles, geometryCopy, planeArea;
-    var mouse = new THREE.Vector2(-200, 200);
-    var raycaster = new THREE.Raycaster();
-    var colorChange = new THREE.Color();
-    var buttom = false;
-    var ease = 0.05;
-    var area = 250;
-
-    var data = {
-      text: 'NAPLES\nJEWELRY BUYERS',
-      amount: 800,
-      particleSize: 1,
-      textSize: 7,
-    };
-
-    function init(font, particleImg) {
-      scene = new THREE.Scene();
-      camera = new THREE.PerspectiveCamera(65, container.clientWidth / container.clientHeight, 1, 10000);
-      camera.position.set(0, 0, 100);
-      renderer = new THREE.WebGLRenderer({ alpha: true });
-      renderer.setClearColor(0x000000, 0);
-      renderer.setSize(container.clientWidth, container.clientHeight);
-      renderer.setPixelRatio(1);
-      container.appendChild(renderer.domElement);
-
-      var geo = new THREE.PlaneGeometry(visibleWidthAtZ(100), visibleHeightAtZ(100));
-      var mat = new THREE.MeshBasicMaterial({ transparent: true });
-      planeArea = new THREE.Mesh(geo, mat);
-      planeArea.visible = false;
-      scene.add(planeArea);
-
-      createText(font, particleImg);
-      positionAnnotation();
-
-      var mouseInHero = false;
-      container.addEventListener('mouseenter', function() { mouseInHero = true; });
-      container.addEventListener('mouseleave', function() { mouseInHero = false; mouse.set(-200, 200); });
-      document.addEventListener('mousemove', function(e) {
-        if (!mouseInHero) return;
-        var rect = container.getBoundingClientRect();
-        mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-        mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-      });
-      document.addEventListener('mousedown', function() { if (mouseInHero) { buttom = true; ease = 0.01; } });
-      document.addEventListener('mouseup', function() { buttom = false; ease = 0.05; });
-      window.addEventListener('resize', function() {
-        camera.aspect = container.clientWidth / container.clientHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(container.clientWidth, container.clientHeight);
-        positionAnnotation();
-      });
-
-      positionAnnotation();
-      var lastFrameTime = 0;
-      var loaderReadyFired = false;
-      renderer.setAnimationLoop(function(now) {
-        if (now - lastFrameTime < 32) return;
-        lastFrameTime = now;
-        if (!loaderReadyFired) {
-          loaderReadyFired = true;
-          window.dispatchEvent(new CustomEvent('canvas-ready'));
-        }
-        if (!portalPositioned) { positionAnnotation(); portalPositioned = true; }
-        render(mouseInHero);
-      });
-    }
-
-    function render(doRaycast) {
-      var time = ((.001 * performance.now()) % 12) / 12;
-      var zigzagTime = (1 + Math.sin(time * 2 * Math.PI)) / 6;
-
-      var pos = particles.geometry.attributes.position;
-      var copy = geometryCopy.attributes.position;
-      var coulors = particles.geometry.attributes.customColor;
-      var size = particles.geometry.attributes.size;
-
-      // Only raycast when mouse is inside the hero; otherwise lerp-to-home still runs below
-      var hasHit = false, mx, my, mz;
-      if (doRaycast) {
-        raycaster.setFromCamera(mouse, camera);
-        var intersects = raycaster.intersectObject(planeArea);
-        if (intersects.length > 0) {
-          hasHit = true;
-          mx = intersects[0].point.x;
-          my = intersects[0].point.y;
-          mz = intersects[0].point.z;
-        }
-      }
-
-      for (var i = 0, l = pos.count; i < l; i++) {
-        var initX = copy.getX(i), initY = copy.getY(i), initZ = copy.getZ(i);
-        var px = pos.getX(i), py = pos.getY(i), pz = pos.getZ(i);
-
-        if (hasHit) {
-          colorChange.setHSL(0.5, 1, 1);
-          coulors.setXYZ(i, colorChange.r, colorChange.g, colorChange.b);
-          coulors.needsUpdate = true;
-          size.array[i] = data.particleSize;
-          size.needsUpdate = true;
-          var dx = mx - px, dy = my - py;
-          var d = dx * dx + dy * dy;
-          var f = -area / d;
-          if (buttom) {
-            var t = Math.atan2(dy, dx);
-            px -= f * Math.cos(t);
-            py -= f * Math.sin(t);
-            colorChange.setHSL(0.5 + zigzagTime, 1.0, 0.5);
-            coulors.setXYZ(i, colorChange.r, colorChange.g, colorChange.b);
-            coulors.needsUpdate = true;
-            if (Math.abs(px - initX) > 70 || Math.abs(py - initY) > 70) {
-              colorChange.setHSL(0.12, 1.0, 0.5);
-              coulors.setXYZ(i, colorChange.r, colorChange.g, colorChange.b);
-              coulors.needsUpdate = true;
-            }
-          } else {
-            var mouseDistance = Math.sqrt(dx * dx + dy * dy);
-            if (mouseDistance < area) {
-              if (i % 5 === 0) {
-                var t2 = Math.atan2(dy, dx);
-                px -= 0.03 * Math.cos(t2);
-                py -= 0.03 * Math.sin(t2);
-                colorChange.setHSL(0.12, 1.0, 0.5);
-                coulors.setXYZ(i, colorChange.r, colorChange.g, colorChange.b);
-                coulors.needsUpdate = true;
-                size.array[i] = data.particleSize / 1.2;
-                size.needsUpdate = true;
-              } else {
-                var t3 = Math.atan2(dy, dx);
-                px += f * Math.cos(t3);
-                py += f * Math.sin(t3);
-                pos.setXYZ(i, px, py, pz);
-                pos.needsUpdate = true;
-                size.array[i] = data.particleSize * 1.3;
-                size.needsUpdate = true;
-              }
-              if (Math.abs(px - initX) > 10 || Math.abs(py - initY) > 10) {
-                colorChange.setHSL(0.12, 1.0, 0.5);
-                coulors.setXYZ(i, colorChange.r, colorChange.g, colorChange.b);
-                coulors.needsUpdate = true;
-                size.array[i] = data.particleSize / 1.8;
-                size.needsUpdate = true;
-              }
-            }
-          }
-        }
-
-        // Always lerp every particle toward its home position — runs even when
-        // the mouse is outside the hero or has left the window entirely
-        px += (initX - px) * ease;
-        py += (initY - py) * ease;
-        pz += (initZ - pz) * ease;
-        pos.setXYZ(i, px, py, pz);
-        pos.needsUpdate = true;
-      }
-
-      renderer.render(scene, camera);
-    }
-
-    function createText(font, particleImg) {
-      var thePoints = [];
-      var shapes = font.generateShapes(data.text, data.textSize);
-      var geometry = new THREE.ShapeGeometry(shapes);
-      geometry.computeBoundingBox();
-      var xMid = -0.5 * (geometry.boundingBox.max.x - geometry.boundingBox.min.x);
-      var yMid = (geometry.boundingBox.max.y - geometry.boundingBox.min.y) / 2.85;
-      geometry.center();
-      var holeShapes = [];
-      for (var q = 0; q < shapes.length; q++) {
-        var shape = shapes[q];
-        if (shape.holes && shape.holes.length > 0) {
-          for (var j = 0; j < shape.holes.length; j++) holeShapes.push(shape.holes[j]);
-        }
-      }
-      shapes.push.apply(shapes, holeShapes);
-      var colors = [], sizes = [];
-      for (var x = 0; x < shapes.length; x++) {
-        var s = shapes[x];
-        var amountPoints = s.type === 'Path' ? data.amount / 2 : data.amount;
-        s.getSpacedPoints(amountPoints).forEach(function(el) {
-          thePoints.push(new THREE.Vector3(el.x, el.y, 0));
-          colors.push(colorChange.r, colorChange.g, colorChange.b);
-          sizes.push(1);
-        });
-      }
-      var geoParticles = new THREE.BufferGeometry().setFromPoints(thePoints);
-      geoParticles.translate(xMid, yMid + 36, 0);
-      geoParticles.computeBoundingBox();
-      textBBox = geoParticles.boundingBox.clone();
-      geoParticles.setAttribute('customColor', new THREE.Float32BufferAttribute(colors, 3));
-      geoParticles.setAttribute('size', new THREE.Float32BufferAttribute(sizes, 1));
-      var material = new THREE.ShaderMaterial({
-        uniforms: {
-          color: { value: new THREE.Color(0xffffff) },
-          pointTexture: { value: particleImg }
-        },
-        vertexShader: document.getElementById('vertexshader').textContent,
-        fragmentShader: document.getElementById('fragmentshader').textContent,
-        blending: THREE.AdditiveBlending,
-        depthTest: false,
-        transparent: true,
-      });
-      particles = new THREE.Points(geoParticles, material);
-      scene.add(particles);
-      geometryCopy = new THREE.BufferGeometry();
-      geometryCopy.copy(particles.geometry);
-    }
-
-    function visibleHeightAtZ(depth) {
-      var cameraOffset = camera.position.z;
-      var d = depth < cameraOffset ? depth - cameraOffset : depth + cameraOffset;
-      return 2 * Math.tan(camera.fov * Math.PI / 360) * Math.abs(d);
-    }
-    function visibleWidthAtZ(depth) { return visibleHeightAtZ(depth) * camera.aspect; }
-
-    var textBBox = null;
-    var portalPositioned = false;
-    var desktopPortalEl = document.querySelector('.desktop-portal-tag');
-    function positionAnnotation() {
-      if (!desktopPortalEl) return;
-      // Text center ~27% down the full canvas height; tag sits just below text bottom
-      // (+34px extra breathing room below the animated title text)
-      desktopPortalEl.style.top = (Math.round(container.clientHeight * 0.27) + 34) + 'px';
-    }
-    window.addEventListener('resize', positionAnnotation);
-
-    var manager = new THREE.LoadingManager();
-    var loadedFont, loadedTexture;
-    manager.onLoad = function() { setTimeout(function() { init(loadedFont, loadedTexture); }, 1200); };
-    new THREE.FontLoader(manager).load(
-      'https://res.cloudinary.com/dydre7amr/raw/upload/v1612950355/font_zsd4dr.json',
-      function(f) { loadedFont = f; }
-    );
-    loadedTexture = new THREE.TextureLoader(manager).load(
-      'https://res.cloudinary.com/dfvtkoboz/image/upload/v1605013866/particle_a64uzf.png'
-    );
-  })();
-  </script>
-
-  <!-- Loader control: reveal page when canvas is ready (desktop) or on load+fonts (mobile) -->
+  <!-- Loader control: reveal page once WebGL background + fonts are ready -->
   <script>
   (function () {
     var loader  = document.getElementById('page-loader');
@@ -1793,41 +1479,32 @@
       }, 620);
     }
 
-    if (window.innerWidth >= 1025) {
-      // Desktop: wait for Three.js to render its first particle frame
-      window.addEventListener('canvas-ready', reveal, { once: true });
-      // Safety net: if CDN is slow or fails, reveal 5 s after page load at most
-      window.addEventListener('load', function () {
-        setTimeout(reveal, 5000);
-      }, { once: true });
-    } else {
-      // Mobile / tablet: reveal only once the WebGL background has painted its
-      // first frame AND web fonts are ready, so the page never appears with an
-      // unpainted background or a black bar that fills in afterwards.
-      var bgReady = false, fontsReady = false;
-      function maybeReveal() {
-        if (bgReady && fontsReady) reveal();
-      }
-      if (window.__bgReady) {
-        bgReady = true;
-      } else {
-        window.addEventListener('bg-ready', function () {
-          bgReady = true; maybeReveal();
-        }, { once: true });
-      }
-      function onReady() {
-        document.fonts.ready.then(function () {
-          fontsReady = true; maybeReveal();
-        });
-      }
-      if (document.readyState === 'complete') {
-        onReady();
-      } else {
-        window.addEventListener('load', onReady, { once: true });
-      }
-      // Safety net: never leave the loader up longer than 5 s if bg-ready never fires.
-      setTimeout(reveal, 5000);
+    // Reveal only once the WebGL background has painted its first frame AND
+    // web fonts are ready, so the page never appears with an unpainted
+    // background or a black bar that fills in afterwards.
+    var bgReady = false, fontsReady = false;
+    function maybeReveal() {
+      if (bgReady && fontsReady) reveal();
     }
+    if (window.__bgReady) {
+      bgReady = true;
+    } else {
+      window.addEventListener('bg-ready', function () {
+        bgReady = true; maybeReveal();
+      }, { once: true });
+    }
+    function onReady() {
+      document.fonts.ready.then(function () {
+        fontsReady = true; maybeReveal();
+      });
+    }
+    if (document.readyState === 'complete') {
+      onReady();
+    } else {
+      window.addEventListener('load', onReady, { once: true });
+    }
+    // Safety net: never leave the loader up longer than 5 s if bg-ready never fires.
+    setTimeout(reveal, 5000);
   }());
   </script>
 

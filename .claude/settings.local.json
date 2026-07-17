@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:www.naplesantiquesllc.com)"
+      "WebFetch(domain:www.naplesantiquesllc.com)",
+      "PowerShell(Get-NetTCPConnection -LocalPort 8080 -State Listen -ErrorAction SilentlyContinue | Select-Object LocalAddress, LocalPort, OwningProcess | ForEach-Object { $_; Get-Process -Id $_.OwningProcess | Select-Object Id, ProcessName, Path, StartTime })",
+      "PowerShell(Get-Process -Id 26316 | Select-Object Id, ProcessName, Path, StartTime, @{n='CommandLine';e={\\(Get-CimInstance Win32_Process -Filter \"ProcessId=$\\($_.Id\\)\"\\).CommandLine}})",
+      "PowerShell(Get-NetTCPConnection -LocalPort 8080 -State Listen -ErrorAction SilentlyContinue)",
+      "PowerShell(python -m http.server 8080 --directory \"C:\\\\Users\\\\rcman\\\\OneDrive\\\\Documents\\\\NaplesJewelryBuyers\")"
     ]
   }
 }
