@@ -1,51 +1,43 @@
-# Deploy notes — September 2026 satellite-site update
+# Deploy notes — complete site snapshot (September 2026)
 
-Everything in this folder mirrors the repo layout. Drag the contents of `staging/`
-(NOT this README) into the root of the Netlify-connected repo, overwriting the
-existing files, then commit and push in GitHub Desktop.
+`staging/` is now the ENTIRE deployable site, not just the changed files. The
+previous deploy replaced the repo root with only the changed files, so
+`sunscroll.js`, `logo.webp`, `og-image.png`, `seo.css`, and `robots.txt` went
+missing on production (black background, broken logo, unstyled service pages).
+Dragging this whole snapshot in restores everything.
 
-## Files to drag in (15 — all overwrite existing files)
+## Steps
 
-Root:
-- `index.html`
-- `404.html`
-- `sitemap.xml`
-- `netlify.toml`
-- `SEO-PLAN.md`
+1. Open the repo folder in Explorer (GitHub Desktop → Repository → Show in Explorer).
+2. Select EVERYTHING inside `staging/` EXCEPT this `README-DEPLOY.md`, and drag it
+   onto the repo root. When Windows asks, choose **Replace the files in the
+   destination** (and merge folders).
+3. In the repo root, DELETE these if present (they should not be public):
+   - `README-DEPLOY.md` (was pushed by mistake last time)
+   - `debug-9e641e.log`, `tablet_debug.png`
+4. Confirm the repo root now contains exactly:
 
-Folders (each contains one `index.html` — drop the folder onto the repo root and
-choose "replace"):
-- `accessibility/`
-- `privacy/`
-- `terms/`
-- `sell-gold-naples/`
-- `sell-silver-naples/`
-- `sell-jewelry-naples/`
-- `sell-coins-naples/`
-- `sell-diamonds-naples/`
-- `sell-watches-naples/`
-- `estate-jewelry-buyer-naples/`
+   Files (10): `index.html`, `404.html`, `sitemap.xml`, `robots.txt`,
+   `netlify.toml`, `seo.css`, `sunscroll.js`, `logo.webp`, `og-image.png`,
+   `SEO-PLAN.md`
 
-## Files to DELETE from the repo (2)
+   Folders (10): `accessibility/`, `privacy/`, `terms/`, `sell-gold-naples/`,
+   `sell-silver-naples/`, `sell-jewelry-naples/`, `sell-coins-naples/`,
+   `sell-diamonds-naples/`, `sell-watches-naples/`, `estate-jewelry-buyer-naples/`
 
-These are debug artifacts that are currently served publicly from the live site:
-- `debug-9e641e.log`
-- `tablet_debug.png`
-
-## Files NOT changed (leave them as they are)
-
-`seo.css`, `sunscroll.js`, `robots.txt`, `logo.webp`, `og-image.png`,
-`logo-animated.html`, `og-image-generator.html`
+   (`.git`, `.gitignore`, or Netlify-specific files that were already in the repo
+   are fine to leave.)
+5. GitHub Desktop → commit → push. Netlify rebuilds in about a minute.
 
 ## Commit message suggestion
 
-    Frame site as a satellite of Naples Estate Jewelry: shared schema entity, showroom address/hours, funnel links, copy de-dup, legal operator wording, redirects
+    Restore site assets; re-frame hero (visible H1, trust pills, how-it-works steps) and move photo estimate to its own section
 
-## After Netlify finishes building
+## After Netlify finishes
 
-1. Netlify → Forms: `jewelry-photo-estimate` should still be listed.
-2. Spot-check: `/shop` redirects to the main shop, `/debug-9e641e.log` and
-   `/SEO-PLAN.md` return 404.
-3. Search Console (property already exists): Sitemaps → resubmit `sitemap.xml`;
-   URL Inspection → Request indexing for `/` and the seven `sell-*` /
-   `estate-jewelry-buyer-naples/` pages.
+- `https://naplesjewelrybuyers.com/sunscroll.js` and `/logo.webp` return 200
+  (background + logo are back), `/seo.css` returns 200 (service pages styled).
+- `/README-DEPLOY.md`, `/SEO-PLAN.md`, `/debug-9e641e.log` return 404.
+- Netlify → Forms still lists `jewelry-photo-estimate`.
+- Search Console: resubmit `sitemap.xml`; request indexing for `/` and the seven
+  service pages.

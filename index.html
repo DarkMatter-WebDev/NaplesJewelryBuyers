@@ -279,40 +279,24 @@
     /* ── HERO ── */
     .hero {
       position: relative;
-      min-height: 100vh;
+      min-height: 0;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
+      align-items: stretch;
       background: transparent;
       padding-top: 68px;
     }
 
-    /* Title wrapper — stacks logo + portal tag in normal document flow, used at all breakpoints */
-    .mobile-title-block {
+    /* Logo hero title — shown at all viewport sizes (same pattern as naplesgoldbuyers.com) */
+    .hero-logo-wrap {
       display: block;
-      position: static;
-      width: 100%;
-      z-index: 2;
       text-align: center;
-      margin: 16px 0 4px;
-      padding: 0 20px;
       pointer-events: none;
+      width: 100%;
+      margin-top: 16px;
+      padding: 0 20px;
     }
-
-    /* Portal tag flows inside the wrapper — no absolute positioning needed */
-    .mobile-portal-tag {
-      display: block;
-      font-family: 'Lato', sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 3.5px;
-      text-transform: uppercase;
-      color: var(--gold-light);
-      margin-top: 36px;
-    }
-
-    /* Logo — the hero title image at all breakpoints */
-    .mobile-logo {
+    .hero-logo {
       display: block;
       width: min(488px, 56vw);
       height: auto;
@@ -365,48 +349,102 @@
       position: relative;
       z-index: 3;
       max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
     }
     .hero h1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(36px, 6vw, 66px);
+      font-size: clamp(28px, 4.4vw, 46px);
       font-weight: 700;
       color: #fff;
-      line-height: 1.15;
-      margin-bottom: 24px;
+      line-height: 1.25;
+      margin: 18px auto 18px;
+      max-width: 760px;
+      padding: 0 20px;
+      text-align: center;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.6);
     }
     .hero h1 em { font-style: normal; color: var(--gold-light); }
     .hero-sub {
-      font-size: clamp(15px, 2.5vw, 18px);
+      font-size: clamp(15px, 2.2vw, 18px);
       color: rgba(255,255,255,0.80);
-      margin-bottom: 36px;
+      margin-top: 10px;
+      margin-bottom: 28px;
       line-height: 1.7;
       text-align: center;
       max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
       overflow-wrap: break-word;
     }
+    /* ── HERO TRUST ROW (pills) ── */
+    .hero-trust-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin: 0 0 32px;
+    }
+    .trust-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      color: rgba(255,255,255,0.85);
+      background: rgba(255,255,255,0.03);
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    a.trust-pill:hover { border-color: var(--gold-light); color: #fff; }
+
+    /* ── HERO "HOW IT WORKS" STEPS ── */
+    .hero-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 0 0 36px;
+      text-align: left;
+    }
+    .hero-step {
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px;
+      padding: 20px 18px;
+    }
+    .hero-step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: rgba(226,184,74,0.14);
+      border: 1px solid rgba(226,184,74,0.4);
+      color: var(--gold-light);
+      font-size: 13px; font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .hero-step h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px; font-weight: 600; color: #fff;
+      margin-bottom: 6px;
+    }
+    .hero-step p { font-size: 13px; color: rgba(255,255,255,0.62); line-height: 1.55; }
+
     .hero-cta {
       display: flex;
       flex-wrap: wrap;
       gap: 16px;
       align-items: center;
+      justify-content: center;
     }
+    .hero-cross-sell { text-align: center; }
     .hero-cross-sell-btn:hover { background: rgba(255,215,0,0.12); }
     .hero-cross-sell-sub a { color: var(--gold-light); text-decoration: none; }
     .hero-cross-sell-sub a:hover { text-decoration: underline; }
-
-    /* ── TRUST ROW (under hero sub-copy) ── */
-    .trust-row {
-      display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
-      gap: 6px 14px; margin: 18px auto 0; max-width: 600px;
-      list-style: none; padding: 0;
-      font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-      color: rgba(255,255,255,0.82); text-shadow: 0 1px 8px rgba(0,0,0,0.7);
-    }
-    .trust-row li { display: flex; align-items: center; gap: 14px; }
-    .trust-row li + li::before { content: "\2022"; color: var(--gold-light); }
-    .trust-row a { color: inherit; text-decoration: none; }
-    .trust-row a:hover { color: var(--gold-light); }
-    .trust-row .star { color: var(--gold-light); }
 
     /* ── TICKER BANNER ── */
     .ticker {
@@ -859,22 +897,16 @@
       .nav-phone { font-size: 14px; gap: 6px; }
       .nav-phone-text { display: none; }
 
-      /* Hero — normal document flow (no absolute overlays / vh spacer hacks),
-         so the layout self-adjusts to whatever content height it needs and
-         nothing overlaps regardless of logo size or device height. */
-      .hero {
-        padding-top: 44px;
-        min-height: 0;
-      }
-
-      .hero-sub { font-size: 15px; margin-bottom: 4px; white-space: normal; max-width: 320px; margin-left: auto; margin-right: auto; }
-
-      /* Collapse the label/divider above upload box — redundant in hero context */
-      #get-estimate { margin-top: 4px !important; }
-      #get-estimate > .section-label,
-      #get-estimate > .divider { display: none; }
-      #get-estimate form { margin-top: 0; }
-      #uploadActions { display: none; }
+      /* Hero — normal document flow, so the layout self-adjusts to whatever
+         content height it needs regardless of logo size or device height. */
+      .hero { padding-top: 44px; }
+      .hero-logo-wrap { padding: 0 12px; }
+      .hero h1 { margin: 12px auto 12px; padding: 0 12px; }
+      .hero-sub { font-size: 15px; margin-bottom: 18px; white-space: normal; max-width: 360px; margin-left: auto; margin-right: auto; }
+      .hero-trust-row { margin-bottom: 20px; gap: 8px; }
+      .trust-pill { font-size: 11px; padding: 7px 12px; }
+      .hero-steps { grid-template-columns: 1fr; gap: 10px; margin-bottom: 26px; }
+      .hero-step { padding: 16px 14px; }
 
       /* CTA buttons — full-width stacked */
       .hero-cta { flex-direction: column; gap: 12px; }
@@ -903,9 +935,7 @@
       /* Items grid — 2 columns */
       .items-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 28px; }
 
-      /* Trust row + showroom block */
-      .trust-row { font-size: 10px; letter-spacing: 1.2px; gap: 4px 10px; margin-top: 14px; max-width: 320px; }
-      .trust-row li { gap: 10px; }
+      /* Showroom block */
       .showroom-grid { grid-template-columns: 1fr; gap: 12px; margin-top: 24px; }
       .showroom-grid .item-card { padding: 20px 16px; }
       .showroom-cta { flex-direction: column; align-items: stretch; gap: 12px; }
@@ -932,13 +962,8 @@
 
     /* Phone-only: bigger logo with snugger side margins (tablet size unchanged) */
     @media (max-width: 600px) {
-      .mobile-title-block { padding: 0 12px; }
-      .mobile-logo { width: min(513px, 60vw); }
-    }
-
-    /* Tablet-only: a little extra breathing room below the logo */
-    @media (min-width: 601px) and (max-width: 1024px) {
-      .mobile-portal-tag { margin-top: 84px; }
+      .hero-logo-wrap { padding: 0 12px; }
+      .hero-logo { width: min(513px, 60vw); }
     }
 
     /* Very narrow (≤ 380px) */
@@ -1013,88 +1038,41 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div class="mobile-title-block">
-      <img class="mobile-logo" src="logo.webp" alt="Naples Jewelry Buyers" width="583" height="476" />
-      <h1 class="sr-only">Sell Jewelry, Gold and Silver in Naples, Florida</h1>
-      <p class="mobile-portal-tag">Photo Submission Portal</p>
+    <div class="hero-logo-wrap">
+      <img class="hero-logo" src="logo.webp" alt="Naples Jewelry Buyers" width="583" height="476" fetchpriority="high" decoding="async" />
     </div>
+    <h1>Sell Jewelry, Diamonds, Gold &amp; Silver <em>in Naples, Florida</em></h1>
     <div class="container" style="position:relative;z-index:3;padding-bottom:60px;">
       <div class="hero-content">
-        <p class="hero-sub" style="text-shadow:0 2px 16px rgba(0,0,0,0.9);">Send a few photos for a fast, honest offer on jewelry, diamonds, watches, gold, silver, and coins. Visit our North Naples showroom, or we come to you.</p>
-        <ul class="trust-row" aria-label="Highlights">
-          <li><a href="https://maps.google.com/?cid=17050430560749692864" target="_blank" rel="noopener"><span class="star">&#9733;</span>&nbsp;5.0 on Google</a></li>
-          <li>Showroom + Home Visits</li>
-          <li>Serving Collier &amp; Lee Counties</li>
-          <li><a href="https://naplesestatejewelry.com/es/sell/naples" lang="es">Hablamos español</a></li>
-        </ul>
-        <!-- INLINE PHOTO ESTIMATE -->
-        <div id="get-estimate" style="margin-top:32px;">
-          <form id="estimateForm" name="jewelry-photo-estimate" method="POST"
-                enctype="multipart/form-data" data-netlify="true"
-                netlify-honeypot="bot-field">
+        <p class="hero-sub" style="text-shadow:0 2px 16px rgba(0,0,0,0.9);">We buy estate jewelry, diamonds, watches, gold, silver, and coins — examining, testing, and weighing everything in front of you for an honest offer. Visit our North Naples showroom, or we'll come to you anywhere in Collier or Lee County.</p>
 
-            <input type="hidden" name="form-name" value="jewelry-photo-estimate">
-            <p hidden><label>Don't fill this out: <input type="text" name="bot-field"></label></p>
-
-            <div class="upload-zone" id="uploadZone">
-              <input class="upload-file-input" type="file" name="photos"
-                     id="photoInput" accept="image/*" multiple
-                     aria-label="Select photos of your items" />
-              <div class="upload-prompt" id="uploadPrompt">
-                <div class="upload-icon-wrap">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
-                    <polyline points="21 15 16 10 5 21"/>
-                  </svg>
-                </div>
-                <p class="upload-drag-title">
-                  <span class="hide-mobile">Drag photos here</span>
-                  <span class="show-mobile">Choose photos to send</span>
-                </p>
-                <p class="upload-drag-hint">
-                  <span class="hide-mobile">or tap to choose from your camera roll</span>
-                  <span class="show-mobile">Tap to select from your camera roll</span>
-                </p>
-                <span class="upload-tap-btn">Choose Photos</span>
-              </div>
-              <div class="upload-previews" id="uploadPreviews"></div>
-            </div>
-
-            <p class="upload-count-label" id="uploadCount" style="display:none;margin-top:16px;text-align:center;"></p>
-
-            <!-- Hidden fields so Netlify scans them at deploy time -->
-            <input type="hidden" name="name" id="formName" value="">
-            <input type="hidden" name="phone" id="formPhone" value="">
-            <input type="hidden" name="grams" id="formGrams" value="">
-            <input type="hidden" name="item_type" id="formType" value="">
-            <input type="hidden" name="notes" id="formNotes" value="">
-            <input type="hidden" name="legal_consent" id="formLegalConsent" value="">
-            <input type="hidden" name="consent_timestamp" id="formConsentTimestamp" value="">
-            <input type="hidden" name="consent_version" value="2026-09-01">
-
-            <div id="uploadActions" style="margin-top:24px;text-align:center;display:none;">
-              <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;">
-                <button type="submit" class="btn btn-gold" id="submitBtn">
-                  Send
-                </button>
-                <button type="button" class="btn btn-outline" id="clearPhotosBtn"
-                        style="display:none;padding:16px 24px;">Clear Photos</button>
-              </div>
-            </div>
-          </form>
-
-          <div class="upload-success" id="uploadSuccess">
-            <div class="upload-success-icon">&#10003;</div>
-            <p class="section-label" style="color:var(--gold-light);">Got it!</p>
-            <h3 style="font-family:'Playfair Display',serif;font-size:26px;font-weight:600;color:#fff;margin-bottom:12px;">Photos Received</h3>
-            <p style="color:rgba(255,255,255,0.62);font-size:16px;max-width:400px;margin:0 auto 28px;line-height:1.7;">We'll review your items and reach out as soon as we can. For a faster response, give us a call.</p>
-            <button type="button" class="btn btn-gold" onclick="window.location.reload()">Submit More Photos</button>
+        <div class="hero-trust-row">
+          <a href="https://maps.google.com/?cid=17050430560749692864" target="_blank" rel="noopener" class="trust-pill">&#9733; 5.0 on Google</a>
+          <a href="#visit" class="trust-pill">Showroom + Home Visits</a>
+          <span class="trust-pill">Serving Collier &amp; Lee Counties</span>
+          <a href="https://naplesestatejewelry.com/es/sell/naples" lang="es" class="trust-pill">Hablamos español</a>
+        </div>
+        <div class="hero-steps">
+          <div class="hero-step">
+            <div class="hero-step-num">1</div>
+            <h4>Reach Out</h4>
+            <p>Call, text, send a few photos, or stop by the showroom during business hours.</p>
+          </div>
+          <div class="hero-step">
+            <div class="hero-step-num">2</div>
+            <h4>Get Evaluated</h4>
+            <p>Every piece is examined, tested, and weighed in front of you — at the showroom, at your home, or from your photos.</p>
+          </div>
+          <div class="hero-step">
+            <div class="hero-step-num">3</div>
+            <h4>Get Paid</h4>
+            <p>Accept the offer and you're paid at the time of the transaction. No obligation, no pressure.</p>
           </div>
         </div>
 
-        <div class="hero-cta" style="margin-top:36px;">
-          <a href="tel:+12394048505" class="btn btn-gold">Call or Text Now: (239) 404-8505</a>
-          <a href="#visit" class="btn btn-outline">Visit Our Showroom</a>
+        <div class="hero-cta">
+          <a href="tel:+12394048505" class="btn btn-gold">Call or Text (239) 404-8505</a>
+          <a href="#get-estimate" class="btn btn-outline">Get a Photo Estimate</a>
         </div>
         <div class="hero-cross-sell" style="margin-top:48px;padding-top:40px;border-top:1px solid rgba(255,255,255,0.12);">
           <p style="font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold-light);margin-bottom:10px;">Want to buy or trade instead?</p>
@@ -1187,6 +1165,80 @@
           <span class="item-icon">⌚</span>
           <h3><a href="/sell-watches-naples/" style="color:inherit;text-decoration:none;">Watches</a></h3>
           <p>Swiss and luxury timepieces, vintage mechanicals, and gold watches — running or not, with or without papers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FREE PHOTO ESTIMATE (moved out of the hero; id "get-estimate" is safe from
+       sunscroll.js's a[href^="#s"] click hijack) -->
+  <section class="section section-alt" id="get-estimate" style="scroll-margin-top:84px;">
+    <div class="container">
+      <p class="section-label">Free Photo Estimate</p>
+      <h2 class="section-title">Send Photos, Get a Fast Response</h2>
+      <p class="section-sub">Prefer not to call first? Snap a few photos of your jewelry, diamonds, watches, gold, silver, or coins and send them our way — no appointment needed to get started.</p>
+      <div class="divider"></div>
+      <div style="max-width:640px;">
+        <form id="estimateForm" name="jewelry-photo-estimate" method="POST"
+              enctype="multipart/form-data" data-netlify="true"
+              netlify-honeypot="bot-field">
+
+          <input type="hidden" name="form-name" value="jewelry-photo-estimate">
+          <p hidden><label>Don't fill this out: <input type="text" name="bot-field"></label></p>
+
+          <div class="upload-zone" id="uploadZone">
+            <input class="upload-file-input" type="file" name="photos"
+                   id="photoInput" accept="image/*" multiple
+                   aria-label="Select photos of your items" />
+            <div class="upload-prompt" id="uploadPrompt">
+              <div class="upload-icon-wrap">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+                  <polyline points="21 15 16 10 5 21"/>
+                </svg>
+              </div>
+              <p class="upload-drag-title">
+                <span class="hide-mobile">Drag photos here</span>
+                <span class="show-mobile">Choose photos to send</span>
+              </p>
+              <p class="upload-drag-hint">
+                <span class="hide-mobile">or tap to choose from your camera roll</span>
+                <span class="show-mobile">Tap to select from your camera roll</span>
+              </p>
+              <span class="upload-tap-btn">Choose Photos</span>
+            </div>
+            <div class="upload-previews" id="uploadPreviews"></div>
+          </div>
+
+          <p class="upload-count-label" id="uploadCount" style="display:none;margin-top:16px;text-align:center;"></p>
+
+          <!-- Hidden fields so Netlify scans them at deploy time -->
+          <input type="hidden" name="name" id="formName" value="">
+          <input type="hidden" name="phone" id="formPhone" value="">
+          <input type="hidden" name="grams" id="formGrams" value="">
+          <input type="hidden" name="item_type" id="formType" value="">
+          <input type="hidden" name="notes" id="formNotes" value="">
+          <input type="hidden" name="legal_consent" id="formLegalConsent" value="">
+          <input type="hidden" name="consent_timestamp" id="formConsentTimestamp" value="">
+          <input type="hidden" name="consent_version" value="2026-09-01">
+
+          <div id="uploadActions" style="margin-top:24px;text-align:center;display:none;">
+            <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;">
+              <button type="submit" class="btn btn-gold" id="submitBtn">
+                Send
+              </button>
+              <button type="button" class="btn btn-outline" id="clearPhotosBtn"
+                      style="display:none;padding:16px 24px;">Clear Photos</button>
+            </div>
+          </div>
+        </form>
+
+        <div class="upload-success" id="uploadSuccess">
+          <div class="upload-success-icon">&#10003;</div>
+          <p class="section-label" style="color:var(--gold-light);">Got it!</p>
+          <h3 style="font-family:'Playfair Display',serif;font-size:26px;font-weight:600;color:#fff;margin-bottom:12px;">Photos Received</h3>
+          <p style="color:rgba(255,255,255,0.62);font-size:16px;max-width:400px;margin:0 auto 28px;line-height:1.7;">We'll review your items and reach out as soon as we can. For a faster response, give us a call.</p>
+          <button type="button" class="btn btn-gold" onclick="window.location.reload()">Submit More Photos</button>
         </div>
       </div>
     </div>
