@@ -1,6 +1,48 @@
 [build]
   publish = "."
 
+# Convenience paths for print, verbal referrals, and typed URLs. All funnel to
+# Naples Estate Jewelry (the parent business). None of these exist as files.
+[[redirects]]
+  from = "/shop"
+  to = "https://naplesestatejewelry.com/shop"
+  status = 301
+
+[[redirects]]
+  from = "/showroom"
+  to = "https://naplesestatejewelry.com/contact"
+  status = 301
+
+[[redirects]]
+  from = "/directions"
+  to = "https://maps.google.com/?cid=17050430560749692864"
+  status = 302
+
+[[redirects]]
+  from = "/es"
+  to = "https://naplesestatejewelry.com/es/sell/naples"
+  status = 301
+
+# Internal files that live in the publish root but should not be public.
+# force = true is required because the files exist on disk.
+[[redirects]]
+  from = "/SEO-PLAN.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/logo-animated.html"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/og-image-generator.html"
+  to = "/404.html"
+  status = 404
+  force = true
+
 [[headers]]
   for = "/*"
     [headers.values]

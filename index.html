@@ -8,21 +8,21 @@
        track the changing scene. Starts at the top-of-page (midday) sky blue. -->
   <meta name="theme-color" content="#5a78a5" />
 
-  <title>Sell Gold, Silver &amp; Jewelry in Naples, FL | Naples Jewelry Buyers</title>
-  <meta name="description" content="Sell gold, silver, diamonds, coins, and estate jewelry in Naples, FL. Naples Jewelry Buyers provides a free, no-obligation offer at your location. Call or text (239) 404-8505." />
+  <title>Sell Jewelry, Gold &amp; Silver in Naples, FL | Naples Jewelry Buyers</title>
+  <meta name="description" content="Sell jewelry, diamonds, watches, gold &amp; silver in Naples, FL. Free, no-obligation offers. Visit our North Naples showroom or we come to you. (239) 404-8505" />
   <link rel="canonical" href="https://naplesjewelrybuyers.com/" />
   <link rel="alternate" type="application/xml" title="Sitemap" href="https://naplesjewelrybuyers.com/sitemap.xml" />
   <meta name="geo.region"    content="US-FL" />
   <meta name="geo.placename" content="Naples, FL" />
-  <meta name="geo.position"  content="26.1420;-81.7948" />
-  <meta name="ICBM"          content="26.1420, -81.7948" />
+  <meta name="geo.position"  content="26.222053;-81.781429" />
+  <meta name="ICBM"          content="26.222053, -81.781429" />
 
   <!-- Open Graph — update the content URLs below to match your deployment domain -->
   <meta property="og:type"        content="website" />
   <meta property="og:site_name"   content="Naples Jewelry Buyers" />
   <meta property="og:url"         content="https://naplesjewelrybuyers.com/" />
-  <meta property="og:title"       content="Sell Gold, Silver &amp; Jewelry in Naples, FL | Naples Jewelry Buyers" />
-  <meta property="og:description" content="Free, no-obligation offers for gold, silver, diamonds, coins, watches, and estate jewelry in Naples, Florida. We come to you." />
+  <meta property="og:title"       content="Sell Jewelry, Gold &amp; Silver in Naples, FL | Naples Jewelry Buyers" />
+  <meta property="og:description" content="Free, no-obligation offers for jewelry, diamonds, watches, gold, silver, and coins in Naples, Florida. Visit our North Naples showroom or we come to you." />
   <meta property="og:image"       content="https://naplesjewelrybuyers.com/og-image.png" />
   <meta property="og:image:width"  content="1200" />
   <meta property="og:image:height" content="630" />
@@ -31,71 +31,113 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="Sell Gold, Silver &amp; Jewelry in Naples, FL | Naples Jewelry Buyers" />
-  <meta name="twitter:description" content="Free, no-obligation offers for gold, silver, diamonds, coins, watches, and estate jewelry in Naples, Florida. We come to you." />
+  <meta name="twitter:title"       content="Sell Jewelry, Gold &amp; Silver in Naples, FL | Naples Jewelry Buyers" />
+  <meta name="twitter:description" content="Free, no-obligation offers for jewelry, diamonds, watches, gold, silver, and coins in Naples, Florida. Visit our North Naples showroom or we come to you." />
   <meta name="twitter:image"       content="https://naplesjewelrybuyers.com/og-image.png" />
   <meta name="twitter:image:alt"   content="Naples Jewelry Buyers — We Buy Estate Jewelry, Gold, Silver &amp; Coins in Naples, FL" />
 
-  <!-- Local Business structured data for Google Maps / local search -->
+  <!-- Structured data. NaplesJewelryBuyers.com is a service of Naples Estate Jewelry:
+       the business node below reuses the main site's @id so all three domains
+       (naplesestatejewelry.com, naplesgoldbuyers.com, naplesjewelrybuyers.com)
+       resolve to ONE entity for Google. Keep NAP/hours/socials identical to
+       naplesestatejewelry.com — never vary them here. -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "Jeweler"],
-    "@id": "https://naplesjewelrybuyers.com/#business",
-    "name": "Naples Jewelry Buyers",
-    "description": "On-site estate jewelry, diamond, gold, silver, and coin buying service serving Naples and all of Southwest Florida. We come to you for fast, honest offers.",
-    "url": "https://naplesjewelrybuyers.com/",
-    "telephone": "+12394048505",
-    "priceRange": "$$",
-    "image": "https://naplesjewelrybuyers.com/og-image.png",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Naples",
-      "addressRegion": "FL",
-      "addressCountry": "US"
-    },
-    "areaServed": [
-      { "@type": "City", "name": "Naples, FL" },
-      { "@type": "City", "name": "North Naples, FL" },
-      { "@type": "City", "name": "East Naples, FL" },
-      { "@type": "City", "name": "Marco Island, FL" },
-      { "@type": "City", "name": "Bonita Springs, FL" },
-      { "@type": "City", "name": "Estero, FL" },
-      { "@type": "City", "name": "Fort Myers, FL" },
-      { "@type": "City", "name": "Cape Coral, FL" },
-      { "@type": "City", "name": "Ave Maria, FL" },
-      { "@type": "City", "name": "Golden Gate, FL" },
-      { "@type": "City", "name": "Immokalee, FL" },
-      { "@type": "City", "name": "Lehigh Acres, FL" },
-      { "@type": "City", "name": "Sanibel, FL" },
-      { "@type": "City", "name": "Pelican Bay, FL" }
-    ],
-    "serviceType": [
-      "Jewelry Buying",
-      "Estate Jewelry Buying",
-      "Diamond Buying",
-      "Gold Buying",
-      "Silver Buying",
-      "Coin Buying",
-      "Watch Buying",
-      "On-Site Buying Service"
+    "@graph": [
+      {
+        "@type": "JewelryStore",
+        "@id": "https://naplesestatejewelry.com/#business",
+        "name": "Naples Estate Jewelry",
+        "alternateName": ["Naples Jewelry Buyers", "Naples Gold & Silver Buyer"],
+        "description": "Jewelry, diamond, watch, gold, silver, coin, and estate buyer with a showroom in North Naples, FL. Visit during showroom hours or arrange a private evaluation at your home or office anywhere in Collier or Lee County.",
+        "url": "https://naplesestatejewelry.com",
+        "telephone": "+12394048505",
+        "email": "info@naplesestatejewelry.com",
+        "image": "https://naplesjewelrybuyers.com/og-image.png",
+        "logo": "https://naplesestatejewelry.com/assets/images/branding/logo.webp",
+        "priceRange": "$$",
+        "currenciesAccepted": "USD",
+        "paymentAccepted": "Cash, Check, Wire Transfer, PayPal, Credit Card, Debit Card",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "6240 Shirley St, Ste 104",
+          "addressLocality": "Naples",
+          "addressRegion": "FL",
+          "postalCode": "34109",
+          "addressCountry": "US"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 26.222053,
+          "longitude": -81.781429
+        },
+        "hasMap": "https://www.google.com/maps/search/?api=1&query=Naples%20Estate%20Jewelry%2C%206240%20Shirley%20St%2C%20Ste%20104%2C%20Naples%2C%20FL%2034109",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "11:00",
+            "closes": "15:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Saturday"],
+            "opens": "11:00",
+            "closes": "16:00"
+          }
+        ],
+        "sameAs": [
+          "https://maps.google.com/?cid=17050430560749692864",
+          "https://www.instagram.com/naples_estate_jewelry/",
+          "https://www.facebook.com/naplesestatejewelry"
+        ],
+        "areaServed": [
+          { "@type": "City", "name": "Naples, FL" },
+          { "@type": "City", "name": "North Naples, FL" },
+          { "@type": "City", "name": "Marco Island, FL" },
+          { "@type": "City", "name": "Bonita Springs, FL" },
+          { "@type": "City", "name": "Estero, FL" },
+          { "@type": "City", "name": "Fort Myers, FL" },
+          { "@type": "City", "name": "Cape Coral, FL" },
+          { "@type": "AdministrativeArea", "name": "Collier County, FL" },
+          { "@type": "AdministrativeArea", "name": "Lee County, FL" }
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://naplesjewelrybuyers.com/#website",
+        "url": "https://naplesjewelrybuyers.com/",
+        "name": "Naples Jewelry Buyers",
+        "inLanguage": "en-US",
+        "publisher": { "@id": "https://naplesestatejewelry.com/#business" }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://naplesjewelrybuyers.com/#webpage",
+        "url": "https://naplesjewelrybuyers.com/",
+        "name": "Sell Jewelry, Gold & Silver in Naples, FL | Naples Jewelry Buyers",
+        "isPartOf": { "@id": "https://naplesjewelrybuyers.com/#website" },
+        "about": { "@id": "https://naplesestatejewelry.com/#business" },
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://naplesjewelrybuyers.com/#faq",
+        "mainEntity": [
+          {"@type":"Question","name":"How do you determine what you'll pay?","acceptedAnswer":{"@type":"Answer","text":"Offers consider the current spot price of gold or silver, the purity, and the weight of each item. For finished jewelry, the design, maker, diamonds, gemstones, and condition are also considered and can add value beyond the metal. Items are tested and weighed during the evaluation."}},
+          {"@type":"Question","name":"Do I need an appointment?","acceptedAnswer":{"@type":"Answer","text":"No appointment is needed to visit the showroom during business hours. For an evaluation at your home or office in the Naples area, call or text to arrange a convenient time."}},
+          {"@type":"Question","name":"Where is your showroom?","acceptedAnswer":{"@type":"Answer","text":"Naples Jewelry Buyers is a service of Naples Estate Jewelry, located at 6240 Shirley St, Ste 104, Naples, FL 34109. Showroom hours are Monday through Friday 11 AM to 3 PM and Saturday 11 AM to 4 PM."}},
+          {"@type":"Question","name":"Do you buy sterling silver and silver plate?","acceptedAnswer":{"@type":"Answer","text":"We evaluate sterling silver flatware, hollowware, trays, tea sets, jewelry, coins, bars, and other silver items. Silver-plated pieces may have different value, so it is helpful to include clear photos of hallmarks and maker's marks."}},
+          {"@type":"Question","name":"What condition do my items need to be in?","acceptedAnswer":{"@type":"Answer","text":"Gold and silver items can often be evaluated regardless of whether they are broken, bent, or tarnished. Finished jewelry and watches are evaluated as they are; there is no need to clean or repair anything first."}},
+          {"@type":"Question","name":"What if I don't know the karat or purity?","acceptedAnswer":{"@type":"Answer","text":"That's fine. Purity is tested during the evaluation at no charge."}},
+          {"@type":"Question","name":"Is there any obligation to sell?","acceptedAnswer":{"@type":"Answer","text":"No. Evaluations and offers are free, and there is no obligation to accept an offer."}},
+          {"@type":"Question","name":"How quickly will I be paid?","acceptedAnswer":{"@type":"Answer","text":"If an offer is accepted, payment is made at the time of the transaction."}},
+          {"@type":"Question","name":"Do you also sell jewelry or offer trade-ins?","acceptedAnswer":{"@type":"Answer","text":"Yes. Naples Estate Jewelry sells estate and vintage jewelry at the showroom and online, and offers a trade-in program if you would like to put the value of your pieces toward something new."}}
+        ]
+      }
     ]
   }
-  </script>
-
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"WebSite","@id":"https://naplesjewelrybuyers.com/#website","url":"https://naplesjewelrybuyers.com/","name":"Naples Jewelry Buyers","inLanguage":"en-US","publisher":{"@id":"https://naplesjewelrybuyers.com/#business"}}
-  </script>
-
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-    {"@type":"Question","name":"How do you determine what you'll pay?","acceptedAnswer":{"@type":"Answer","text":"Offers are based on the current spot price of gold or silver, the purity, and the weight of each item. Items are tested and weighed during the evaluation."}},
-    {"@type":"Question","name":"Do I need an appointment?","acceptedAnswer":{"@type":"Answer","text":"Call or text to arrange a convenient evaluation at your home, office, or another preferred location in the Naples area."}},
-    {"@type":"Question","name":"Do you buy sterling silver and silver plate?","acceptedAnswer":{"@type":"Answer","text":"We evaluate sterling silver flatware, hollowware, trays, tea sets, jewelry, coins, bars, and other silver items. Silver-plated pieces may have different value, so it is helpful to include clear photos of hallmarks and maker’s marks."}},
-    {"@type":"Question","name":"What condition do my items need to be in?","acceptedAnswer":{"@type":"Answer","text":"Gold and silver items can often be evaluated regardless of whether they are broken, bent, or tarnished."}},
-    {"@type":"Question","name":"Is there any obligation to sell?","acceptedAnswer":{"@type":"Answer","text":"No. Evaluations and offers are free, and there is no obligation to accept an offer."}},
-    {"@type":"Question","name":"How quickly will I be paid?","acceptedAnswer":{"@type":"Answer","text":"If an offer is accepted, payment is made at the time of the transaction."}}
-  ]}
   </script>
 
   <!-- Fonts -->
@@ -348,6 +390,23 @@
       gap: 16px;
       align-items: center;
     }
+    .hero-cross-sell-btn:hover { background: rgba(255,215,0,0.12); }
+    .hero-cross-sell-sub a { color: var(--gold-light); text-decoration: none; }
+    .hero-cross-sell-sub a:hover { text-decoration: underline; }
+
+    /* ── TRUST ROW (under hero sub-copy) ── */
+    .trust-row {
+      display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+      gap: 6px 14px; margin: 18px auto 0; max-width: 600px;
+      list-style: none; padding: 0;
+      font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: rgba(255,255,255,0.82); text-shadow: 0 1px 8px rgba(0,0,0,0.7);
+    }
+    .trust-row li { display: flex; align-items: center; gap: 14px; }
+    .trust-row li + li::before { content: "\2022"; color: var(--gold-light); }
+    .trust-row a { color: inherit; text-decoration: none; }
+    .trust-row a:hover { color: var(--gold-light); }
+    .trust-row .star { color: var(--gold-light); }
 
     /* ── TICKER BANNER ── */
     .ticker {
@@ -397,6 +456,32 @@
       color: #fff;
     }
     .item-card p { font-size: 14px; color: rgba(255,255,255,0.68); line-height: 1.6; }
+
+    /* ── VISIT THE SHOWROOM ── */
+    .showroom-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .showroom-grid address { font-style: normal; }
+    .showroom-grid p, .showroom-grid address { font-size: 15px; color: rgba(255,255,255,0.78); line-height: 1.7; }
+    .showroom-grid a { color: #fff; text-decoration: none; }
+    .showroom-grid a:hover { color: var(--gold-light); }
+    .showroom-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 32px; }
+    .text-link { color: var(--gold-light); text-decoration: none; font-weight: 700; font-size: 14px; letter-spacing: 0.5px; }
+    .text-link:hover { text-decoration: underline; }
+    .owner-strip {
+      margin-top: 40px;
+      padding: 28px 32px;
+      border: 1px solid rgba(226,184,74,0.35);
+      border-radius: 4px;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 16px 32px;
+    }
+    .owner-strip p { font-size: 15px; color: rgba(255,255,255,0.78); line-height: 1.7; max-width: 720px; }
+    .owner-strip strong { color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; }
+    .owner-strip .text-link { white-space: nowrap; }
 
     /* ── FAQ ── */
     .faq-list { margin-top: 48px; max-width: 760px; }
@@ -817,6 +902,16 @@
 
       /* Items grid — 2 columns */
       .items-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 28px; }
+
+      /* Trust row + showroom block */
+      .trust-row { font-size: 10px; letter-spacing: 1.2px; gap: 4px 10px; margin-top: 14px; max-width: 320px; }
+      .trust-row li { gap: 10px; }
+      .showroom-grid { grid-template-columns: 1fr; gap: 12px; margin-top: 24px; }
+      .showroom-grid .item-card { padding: 20px 16px; }
+      .showroom-cta { flex-direction: column; align-items: stretch; gap: 12px; }
+      .showroom-cta .btn { width: 100%; text-align: center; padding: 15px 16px; font-size: 13px; letter-spacing: 0.5px; }
+      .showroom-cta .text-link { text-align: center; }
+      .owner-strip { padding: 20px; flex-direction: column; align-items: flex-start; }
       .item-card { padding: 20px 12px; }
       .item-icon { font-size: 30px; margin-bottom: 10px; }
       .item-card h3 { font-size: 15px; margin-bottom: 6px; }
@@ -920,12 +1015,18 @@
   <section class="hero">
     <div class="mobile-title-block">
       <img class="mobile-logo" src="logo.webp" alt="Naples Jewelry Buyers" width="583" height="476" />
-      <h1 class="sr-only">Sell Gold, Silver and Jewelry in Naples, Florida</h1>
+      <h1 class="sr-only">Sell Jewelry, Gold and Silver in Naples, Florida</h1>
       <p class="mobile-portal-tag">Photo Submission Portal</p>
     </div>
     <div class="container" style="position:relative;z-index:3;padding-bottom:60px;">
       <div class="hero-content">
-        <p class="hero-sub" style="text-shadow:0 2px 16px rgba(0,0,0,0.9);">Send photos below for a fast, honest offer on your gold, silver, coins, and estate jewelry.</p>
+        <p class="hero-sub" style="text-shadow:0 2px 16px rgba(0,0,0,0.9);">Send a few photos for a fast, honest offer on jewelry, diamonds, watches, gold, silver, and coins. Visit our North Naples showroom, or we come to you.</p>
+        <ul class="trust-row" aria-label="Highlights">
+          <li><a href="https://maps.google.com/?cid=17050430560749692864" target="_blank" rel="noopener"><span class="star">&#9733;</span>&nbsp;5.0 on Google</a></li>
+          <li>Showroom + Home Visits</li>
+          <li>Serving Collier &amp; Lee Counties</li>
+          <li><a href="https://naplesestatejewelry.com/es/sell/naples" lang="es">Hablamos español</a></li>
+        </ul>
         <!-- INLINE PHOTO ESTIMATE -->
         <div id="get-estimate" style="margin-top:32px;">
           <form id="estimateForm" name="jewelry-photo-estimate" method="POST"
@@ -969,7 +1070,7 @@
             <input type="hidden" name="notes" id="formNotes" value="">
             <input type="hidden" name="legal_consent" id="formLegalConsent" value="">
             <input type="hidden" name="consent_timestamp" id="formConsentTimestamp" value="">
-            <input type="hidden" name="consent_version" value="2026-07-11">
+            <input type="hidden" name="consent_version" value="2026-09-01">
 
             <div id="uploadActions" style="margin-top:24px;text-align:center;display:none;">
               <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;">
@@ -993,16 +1094,15 @@
 
         <div class="hero-cta" style="margin-top:36px;">
           <a href="tel:+12394048505" class="btn btn-gold">Call or Text Now: (239) 404-8505</a>
-          <a href="https://naplesestatejewelry.co/shop" target="_blank" rel="noopener" class="btn btn-outline">Visit Our Store</a>
+          <a href="#visit" class="btn btn-outline">Visit Our Showroom</a>
         </div>
         <div class="hero-cross-sell" style="margin-top:48px;padding-top:40px;border-top:1px solid rgba(255,255,255,0.12);">
           <p style="font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold-light);margin-bottom:10px;">Want to buy or trade instead?</p>
-          <p style="font-size:15px;color:rgba(255,255,255,0.65);margin-bottom:24px;line-height:1.6;">Get special pricing when you sell us jewelry and shop with store credit.</p>
-          <a href="https://www.NaplesEstateJewelry.co" target="_blank" rel="noopener"
+          <p class="hero-cross-sell-sub" style="font-size:15px;color:rgba(255,255,255,0.65);margin-bottom:24px;line-height:1.6;">Browse the Naples Estate Jewelry collection, or put the value of your pieces toward something new through the <a href="https://naplesestatejewelry.com/trade-in">trade-in program</a>.</p>
+          <a href="https://naplesestatejewelry.com/shop" target="_blank" rel="noopener"
              class="hero-cross-sell-btn"
-             style="display:inline-block;padding:22px 56px;font-family:'Lato',sans-serif;font-size:18px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;color:#fff;border:2px solid #FFD700;border-radius:3px;transition:background 0.2s,color 0.2s;"
-             onmouseover="this.style.background='rgba(255,215,0,0.12)'" onmouseout="this.style.background='transparent'">
-            <span style="color:#fff;">Visit the </span><span style="color:#FFD700;">Naples Estate Jewelry.co</span><span style="color:#fff;"> Shop &nbsp;&rarr;</span>
+             style="display:inline-block;padding:22px 56px;font-family:'Lato',sans-serif;font-size:18px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;color:#fff;border:2px solid #FFD700;border-radius:3px;transition:background 0.2s,color 0.2s;">
+            <span style="color:#fff;">Visit the </span><span style="color:#FFD700;">Naples Estate Jewelry</span><span style="color:#fff;"> Shop &nbsp;&rarr;</span>
           </a>
         </div>
       </div>
@@ -1012,36 +1112,36 @@
   <!-- TICKER -->
   <div class="ticker" aria-hidden="true">
     <div class="ticker-inner">
-      <span>Gold Jewelry</span><span class="dot">&bull;</span>
-      <span>Silver Bars &amp; Coins</span><span class="dot">&bull;</span>
       <span>Estate Jewelry</span><span class="dot">&bull;</span>
-      <span>Diamonds &amp; Gemstones</span><span class="dot">&bull;</span>
-      <span>Gold Coins</span><span class="dot">&bull;</span>
-      <span>Antique Jewelry</span><span class="dot">&bull;</span>
-      <span>Scrap Gold</span><span class="dot">&bull;</span>
-      <span>Watches</span><span class="dot">&bull;</span>
+      <span>Diamond Rings</span><span class="dot">&bull;</span>
+      <span>Luxury Watches</span><span class="dot">&bull;</span>
+      <span>Signed &amp; Designer Pieces</span><span class="dot">&bull;</span>
+      <span>Gold &amp; Platinum Jewelry</span><span class="dot">&bull;</span>
       <span>Sterling Silver</span><span class="dot">&bull;</span>
-      <span>Bullion</span><span class="dot">&bull;</span>&nbsp;&nbsp;&nbsp;&nbsp;
-      <span>Gold Jewelry</span><span class="dot">&bull;</span>
-      <span>Silver Bars &amp; Coins</span><span class="dot">&bull;</span>
+      <span>Antique &amp; Vintage</span><span class="dot">&bull;</span>
+      <span>Gemstone Jewelry</span><span class="dot">&bull;</span>
+      <span>Coins &amp; Bullion</span><span class="dot">&bull;</span>
+      <span>Scrap Gold</span><span class="dot">&bull;</span>&nbsp;&nbsp;&nbsp;&nbsp;
       <span>Estate Jewelry</span><span class="dot">&bull;</span>
-      <span>Diamonds &amp; Gemstones</span><span class="dot">&bull;</span>
-      <span>Gold Coins</span><span class="dot">&bull;</span>
-      <span>Antique Jewelry</span><span class="dot">&bull;</span>
-      <span>Scrap Gold</span><span class="dot">&bull;</span>
-      <span>Watches</span><span class="dot">&bull;</span>
+      <span>Diamond Rings</span><span class="dot">&bull;</span>
+      <span>Luxury Watches</span><span class="dot">&bull;</span>
+      <span>Signed &amp; Designer Pieces</span><span class="dot">&bull;</span>
+      <span>Gold &amp; Platinum Jewelry</span><span class="dot">&bull;</span>
       <span>Sterling Silver</span><span class="dot">&bull;</span>
-      <span>Bullion</span><span class="dot">&bull;</span>
+      <span>Antique &amp; Vintage</span><span class="dot">&bull;</span>
+      <span>Gemstone Jewelry</span><span class="dot">&bull;</span>
+      <span>Coins &amp; Bullion</span><span class="dot">&bull;</span>
+      <span>Scrap Gold</span><span class="dot">&bull;</span>
     </div>
   </div>
 
   <!-- VALUE STRIP -->
   <section class="claim-strip" style="background:transparent;padding:64px 24px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.10);">
     <div style="max-width:700px;margin:0 auto;">
-      <p style="font-size:12px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--gold-light);margin-bottom:16px;">Private, Convenient Evaluations</p>
+      <p style="font-size:12px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--gold-light);margin-bottom:16px;">Showroom in North Naples &middot; Private Home Visits</p>
       <h2 style="font-family:'Playfair Display',serif;font-size:clamp(30px,5vw,52px);font-weight:700;line-height:1.2;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,0.6);margin-bottom:20px;">A Straightforward Way to Sell Jewelry, Gold &amp; Silver in Naples</h2>
       <div style="width:60px;height:3px;background:var(--gold);margin:0 auto 24px;"></div>
-      <p style="font-size:17px;color:rgba(255,255,255,0.75);line-height:1.7;max-width:560px;margin:0 auto;">Send photos or call to arrange a free, no-obligation offer for gold, silver, coins, diamonds, and estate jewelry.</p>
+      <p style="font-size:17px;color:rgba(255,255,255,0.75);line-height:1.7;max-width:560px;margin:0 auto;">Many pieces are worth more than their metal. We look at design, maker, stones, and condition — at the showroom or at your home — and you decide whether to sell.</p>
     </div>
   </section>
 
@@ -1056,38 +1156,75 @@
         <div class="item-card">
           <span class="item-icon">🥇</span>
           <h3><a href="/sell-gold-naples/" style="color:inherit;text-decoration:none;">Gold</a></h3>
-          <p>All karats welcome — 10K, 14K, 18K, 22K, 24K. Chains, rings, bracelets, scrap gold, and more.</p>
+          <p>Rings, chains, bracelets, and broken or scrap pieces in any karat — evaluated for design and maker as well as weight.</p>
         </div>
         <div class="item-card">
           <span class="item-icon">🥈</span>
           <h3><a href="/sell-silver-naples/" style="color:inherit;text-decoration:none;">Sterling Silver</a></h3>
-          <p>Sterling silver, fine silver, silverware, flatware, trays, candlesticks, and silver bars.</p>
+          <p>Flatware sets, tea services, trays, hollowware, and silver jewelry — tarnished or incomplete sets included.</p>
         </div>
         <div class="item-card">
           <span class="item-icon">🪙</span>
           <h3><a href="/sell-coins-naples/" style="color:inherit;text-decoration:none;">Coins</a></h3>
-          <p>US gold &amp; silver coins, bullion coins, numismatic coins, coin collections, and foreign coins.</p>
+          <p>U.S. and foreign gold and silver coins, bullion, proof sets, and inherited collections, reviewed piece by piece.</p>
         </div>
         <div class="item-card">
           <span class="item-icon">💍</span>
           <h3><a href="/sell-jewelry-naples/" style="color:inherit;text-decoration:none;">Jewelry</a></h3>
-          <p>Diamond rings, gemstone pieces, brooches, earrings, pendants — modern and vintage.</p>
+          <p>Signed and designer pieces, gemstone jewelry, earrings, pendants, and fine jewelry you no longer wear.</p>
         </div>
         <div class="item-card">
           <span class="item-icon">🏛️</span>
           <h3><a href="/estate-jewelry-buyer-naples/" style="color:inherit;text-decoration:none;">Estate Jewelry</a></h3>
-          <p>Victorian, Edwardian, Art Deco, and Mid-Century pieces. Complete estates purchased.</p>
+          <p>Antique and period jewelry, family heirlooms, and complete estates — one ring or an entire collection.</p>
         </div>
         <div class="item-card">
           <span class="item-icon">💎</span>
           <h3><a href="/sell-diamonds-naples/" style="color:inherit;text-decoration:none;">Diamonds</a></h3>
-          <p>Diamond rings, loose diamonds, earrings, bracelets, and diamond estate jewelry.</p>
+          <p>Engagement rings, loose stones with or without lab reports, and diamond earrings, bracelets, and pendants.</p>
         </div>
         <div class="item-card">
           <span class="item-icon">⌚</span>
           <h3><a href="/sell-watches-naples/" style="color:inherit;text-decoration:none;">Watches</a></h3>
-          <p>Fine and luxury watches, vintage timepieces, and watches from estate collections.</p>
+          <p>Swiss and luxury timepieces, vintage mechanicals, and gold watches — running or not, with or without papers.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISIT THE SHOWROOM (id is "visit", not "showroom": sunscroll.js hijacks
+       clicks on any a[href^="#s"] anchor) -->
+  <section class="section" id="visit">
+    <div class="container">
+      <p class="section-label">Visit the Showroom</p>
+      <h2 class="section-title">Naples Jewelry Buyers Is a Service of<br />Naples Estate Jewelry</h2>
+      <div class="divider"></div>
+      <p class="section-sub">Bring your pieces to our North Naples showroom during posted hours, or call to arrange a private evaluation at your home or office anywhere in Collier or Lee County.</p>
+      <div class="showroom-grid">
+        <div class="item-card">
+          <span class="item-icon">📍</span>
+          <h3>Address</h3>
+          <address><a href="https://maps.google.com/?cid=17050430560749692864" target="_blank" rel="noopener">6240 Shirley St, Ste 104<br />Naples, FL 34109</a></address>
+        </div>
+        <div class="item-card">
+          <span class="item-icon">🕒</span>
+          <h3>Showroom Hours</h3>
+          <p>Mon–Fri 11 AM – 3 PM<br />Sat 11 AM – 4 PM<br />Sun closed &middot; home visits by appointment</p>
+        </div>
+        <div class="item-card">
+          <span class="item-icon">📞</span>
+          <h3>Contact</h3>
+          <p><a href="tel:+12394048505">(239) 404-8505</a><br /><a href="mailto:info@naplesestatejewelry.com">info@naplesestatejewelry.com</a></p>
+        </div>
+      </div>
+      <div class="showroom-cta">
+        <a href="https://maps.google.com/?cid=17050430560749692864" target="_blank" rel="noopener" class="btn btn-gold">Get Directions</a>
+        <a href="https://naplesestatejewelry.com/contact" target="_blank" rel="noopener" class="btn btn-outline">Showroom Details &amp; Contact</a>
+        <a href="https://naplesestatejewelry.com/shop" target="_blank" rel="noopener" class="text-link">Browse the shop online &rarr;</a>
+      </div>
+      <div class="owner-strip">
+        <p><strong>Meet the owner: Chris</strong><br />Born and raised in Naples, Chris has spent 15+ years buying and selling fine estate jewelry across Southwest Florida. No middlemen — you deal directly with the person who answers the phone.</p>
+        <a href="https://naplesestatejewelry.com/about" target="_blank" rel="noopener" class="text-link">About Chris &rarr;</a>
       </div>
     </div>
   </section>
@@ -1099,33 +1236,42 @@
       <h2 class="section-title">Common Questions</h2>
       <div class="divider"></div>
       <div class="faq-list">
+        <!-- Keep these answers word-for-word identical to the FAQPage JSON-LD in <head>. -->
         <details>
           <summary>How do you determine what you'll pay?<span class="faq-arrow">+</span></summary>
-          <p class="faq-body">We base our offers on the current live spot price of gold or silver, the karat purity, and the weight of your items. We test and weigh everything transparently in front of you so you can see exactly how we arrive at our number.</p>
+          <p class="faq-body">Offers consider the current spot price of gold or silver, the purity, and the weight of each item. For finished jewelry, the design, maker, diamonds, gemstones, and condition are also considered and can add value beyond the metal. Items are tested and weighed during the evaluation.</p>
         </details>
         <details>
           <summary>Do I need an appointment?<span class="faq-arrow">+</span></summary>
-          <p class="faq-body">Yes — a quick call or text is all it takes. We'll schedule a time that works for you and come to your home, office, or any location you prefer in the Naples area.</p>
+          <p class="faq-body">No appointment is needed to visit the showroom during business hours. For an evaluation at your home or office in the Naples area, call or text to arrange a convenient time.</p>
+        </details>
+        <details>
+          <summary>Where is your showroom?<span class="faq-arrow">+</span></summary>
+          <p class="faq-body">Naples Jewelry Buyers is a service of Naples Estate Jewelry, located at 6240 Shirley St, Ste 104, Naples, FL 34109. Showroom hours are Monday through Friday 11 AM to 3 PM and Saturday 11 AM to 4 PM.</p>
         </details>
         <details>
           <summary>Do you buy sterling silver and silver plate?<span class="faq-arrow">+</span></summary>
-          <p class="faq-body">We evaluate sterling silver flatware, hollowware, trays, tea sets, jewelry, coins, bars, and other silver items. Silver-plated pieces can have different value, so send clear photos of hallmarks and maker's marks when you can.</p>
+          <p class="faq-body">We evaluate sterling silver flatware, hollowware, trays, tea sets, jewelry, coins, bars, and other silver items. Silver-plated pieces may have different value, so it is helpful to include clear photos of hallmarks and maker's marks.</p>
         </details>
         <details>
           <summary>What condition do my items need to be in?<span class="faq-arrow">+</span></summary>
-          <p class="faq-body">Condition often does not matter for gold and silver — the precious metal value is the same whether a piece is broken, bent, or tarnished. Bring us everything and let us evaluate it.</p>
+          <p class="faq-body">Gold and silver items can often be evaluated regardless of whether they are broken, bent, or tarnished. Finished jewelry and watches are evaluated as they are; there is no need to clean or repair anything first.</p>
         </details>
         <details>
           <summary>What if I don't know the karat or purity?<span class="faq-arrow">+</span></summary>
-          <p class="faq-body">No problem at all. We bring professional testing equipment with us and can determine the exact purity and value of any item on the spot, at no charge to you.</p>
+          <p class="faq-body">That's fine. Purity is tested during the evaluation at no charge.</p>
         </details>
         <details>
           <summary>Is there any obligation to sell?<span class="faq-arrow">+</span></summary>
-          <p class="faq-body">Absolutely not. Our visit and appraisal are completely free. You can accept our offer, decline it, or take a few days to think about it — no pressure, no hard feelings.</p>
+          <p class="faq-body">No. Evaluations and offers are free, and there is no obligation to accept an offer.</p>
         </details>
         <details>
           <summary>How quickly will I be paid?<span class="faq-arrow">+</span></summary>
-          <p class="faq-body">If you accept our offer, you are paid immediately in cash on the spot. There are no checks to wait for or bank transfers to track.</p>
+          <p class="faq-body">If an offer is accepted, payment is made at the time of the transaction.</p>
+        </details>
+        <details>
+          <summary>Do you also sell jewelry or offer trade-ins?<span class="faq-arrow">+</span></summary>
+          <p class="faq-body">Yes. Naples Estate Jewelry sells estate and vintage jewelry at the showroom and online, and offers a trade-in program if you would like to put the value of your pieces toward something new.</p>
         </details>
       </div>
     </div>
@@ -1135,29 +1281,39 @@
   <section class="section cta-section" id="contact">
     <div class="container" style="text-align:center;">
       <p class="section-label" style="color:var(--gold-light);">Ready to Sell?</p>
-      <h2 class="section-title" style="margin:0 auto;max-width:600px;">One Call Is All It Takes to<br />Get Cash for Your Jewelry &amp; Gold</h2>
+      <h2 class="section-title" style="margin:0 auto;max-width:600px;">Send Photos, Call,<br />or Visit the Showroom</h2>
       <a href="tel:+12394048505" class="cta-phone-big">(239) 404-8505</a>
-      <p class="cta-note">Call or text anytime — we'll schedule a free, no-obligation visit at your convenience</p>
+      <p class="cta-note">Call or text during business hours, or stop by the showroom — evaluations are free and there is no obligation to sell</p>
       <a href="tel:+12394048505" class="btn btn-gold" style="font-size:16px;padding:18px 48px;">Call or Text Now &rarr;</a>
       <div style="margin-top:14px;">
-        <a href="https://naplesestatejewelry.co/shop" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:15px;padding:14px 40px;">Visit Our Store</a>
+        <a href="https://maps.google.com/?cid=17050430560749692864" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:15px;padding:14px 40px;">Get Directions to the Showroom</a>
       </div>
-      <p style="color:rgba(255,255,255,0.35);font-size:13px;margin-top:24px;">Serving Naples, Marco Island, Bonita Springs &amp; all of Southwest Florida</p>
+      <p style="margin-top:18px;"><a href="https://naplesestatejewelry.com/shop" target="_blank" rel="noopener" class="text-link">Browse the shop at NaplesEstateJewelry.com &rarr;</a></p>
+      <p style="color:rgba(255,255,255,0.55);font-size:14px;margin-top:24px;">6240 Shirley St, Ste 104, Naples, FL 34109 &nbsp;&middot;&nbsp; Mon–Fri 11–3 &nbsp;&middot;&nbsp; Sat 11–4</p>
+      <p style="color:rgba(255,255,255,0.35);font-size:13px;margin-top:8px;">Serving Naples, Marco Island, Bonita Springs, Estero, Fort Myers, Cape Coral &amp; all of Collier and Lee Counties</p>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
     <span class="footer-logo">Naples <span>Jewelry Buyers</span></span>
-    <p>Local &bull; Private appointments &bull; We come to you &bull; Southwest Florida</p>
+    <p>A service of <a href="https://naplesestatejewelry.com">Naples Estate Jewelry</a> &bull; Showroom in North Naples &bull; Private home &amp; office visits across Collier &amp; Lee County</p>
     <p style="margin-top:8px;">
+      <a href="https://maps.google.com/?cid=17050430560749692864" target="_blank" rel="noopener">6240 Shirley St, Ste 104, Naples, FL 34109</a>
+    </p>
+    <p style="margin-top:6px;">
       <a href="tel:+12394048505">(239) 404-8505</a>
       &nbsp;&bull;&nbsp;
-      <a href="https://www.NaplesJewelryBuyers.com">NaplesJewelryBuyers.com</a>
+      <a href="mailto:info@naplesestatejewelry.com">info@naplesestatejewelry.com</a>
+      &nbsp;&bull;&nbsp;
+      <a href="https://naplesestatejewelry.com/contact">Showroom hours &amp; directions</a>
     </p>
+    <p style="margin-top:10px;"><a href="https://naplesestatejewelry.com/shop">Shop</a> &nbsp;&bull;&nbsp; <a href="https://naplesestatejewelry.com/trade-in">Trade-In</a> &nbsp;&bull;&nbsp; <a href="https://naplesestatejewelry.com/free-evaluation">Free Evaluation</a> &nbsp;&bull;&nbsp; <a href="https://naplesestatejewelry.com/es/sell/naples" lang="es">En español</a></p>
+    <p style="margin-top:10px;">Sell in: <a href="https://naplesestatejewelry.com/sell/naples">Naples</a> &nbsp;&bull;&nbsp; <a href="https://naplesestatejewelry.com/sell/marco-island">Marco Island</a> &nbsp;&bull;&nbsp; <a href="https://naplesestatejewelry.com/sell/bonita-springs">Bonita Springs</a> &nbsp;&bull;&nbsp; <a href="https://naplesestatejewelry.com/sell/estero">Estero</a> &nbsp;&bull;&nbsp; <a href="https://naplesestatejewelry.com/sell/fort-myers">Fort Myers</a> &nbsp;&bull;&nbsp; <a href="https://naplesestatejewelry.com/sell/cape-coral">Cape Coral</a></p>
+    <p style="margin-top:10px;"><a href="https://www.instagram.com/naples_estate_jewelry/" target="_blank" rel="noopener">Instagram</a> &nbsp;&bull;&nbsp; <a href="https://www.facebook.com/naplesestatejewelry" target="_blank" rel="noopener">Facebook</a> &nbsp;&bull;&nbsp; <a href="https://maps.google.com/?cid=17050430560749692864" target="_blank" rel="noopener">Google</a></p>
     <p style="margin-top:10px;"><a href="/sell-gold-naples/">Sell Gold</a> &nbsp;&bull;&nbsp; <a href="/sell-silver-naples/">Sell Silver</a> &nbsp;&bull;&nbsp; <a href="/sell-jewelry-naples/">Sell Jewelry</a> &nbsp;&bull;&nbsp; <a href="/sell-coins-naples/">Sell Coins</a> &nbsp;&bull;&nbsp; <a href="/sell-diamonds-naples/">Sell Diamonds</a> &nbsp;&bull;&nbsp; <a href="/sell-watches-naples/">Sell Watches</a> &nbsp;&bull;&nbsp; <a href="/estate-jewelry-buyer-naples/">Estate Jewelry</a></p>
     <p style="margin-top:10px;"><a href="/privacy/">Privacy</a> &nbsp;&bull;&nbsp; <a href="/terms/">Terms</a> &nbsp;&bull;&nbsp; <a href="/accessibility/">Accessibility</a></p>
-    <p style="margin-top:16px;">&copy; 2026 Naples Jewelry Buyers. All rights reserved.</p>
+    <p style="margin-top:16px;">&copy; 2026 Naples Estate Jewelry. All rights reserved.</p>
   </footer>
 
   <!-- MOBILE STICKY CALL BAR -->
@@ -1182,6 +1338,9 @@
         <input class="estimate-field" id="modalGrams" type="number" min="0" step="0.1" placeholder="# Grams" aria-label="Approximate weight in grams">
         <select class="estimate-field" id="modalType" aria-label="Type of item">
           <option value="" disabled selected>Type of item</option>
+          <option value="Jewelry">Jewelry</option>
+          <option value="Diamonds">Diamonds</option>
+          <option value="Watches">Watches</option>
           <option value="Gold">Gold</option>
           <option value="Silver">Silver</option>
           <option value="Estate Jewelry">Estate Jewelry</option>
@@ -1194,7 +1353,7 @@
 
       <label class="legal-consent">
         <input id="modalLegalConsent" type="checkbox" aria-describedby="modalLegalError" required>
-        <span>I confirm I am at least 18 and am the owner or authorized agent for the items shown. I agree to the <a href="/terms/" target="_blank" rel="noopener">Terms</a>, acknowledge the <a href="/privacy/" target="_blank" rel="noopener">Privacy Policy</a>, and authorize Naples Jewelry Buyers to call or text me solely about this evaluation request. Message and data rates may apply; reply STOP to texts. Consent is not a condition of a purchase or sale, and I may call instead.</span>
+        <span>I confirm I am at least 18 and am the owner or authorized agent for the items shown. I agree to the <a href="/terms/" target="_blank" rel="noopener">Terms</a>, acknowledge the <a href="/privacy/" target="_blank" rel="noopener">Privacy Policy</a>, and authorize Naples Estate Jewelry (Naples Jewelry Buyers) to call or text me solely about this evaluation request. Message and data rates may apply; reply STOP to texts. Consent is not a condition of a purchase or sale, and I may call instead.</span>
       </label>
       <p id="modalLegalError" role="alert" style="display:none;margin:6px 0 0;font-size:12px;color:#e05c4b;text-align:left;">Please confirm the consent statement before sending.</p>
 
