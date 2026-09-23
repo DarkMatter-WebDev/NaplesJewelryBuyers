@@ -43,11 +43,20 @@
 - The home page and all seven service pages now declare the Naples Estate Jewelry business entity (shared `@id`, full address, geo, hours, email, socials) instead of a separate, address-less "Naples Jewelry Buyers" business.
 - Added the showroom (address, hours, directions), shop, trade-in, free-evaluation, city, and Spanish links throughout; fixed the `.co` store links; removed unverifiable claims from visible copy and matched the visible FAQ text to the FAQ schema word for word.
 - Legal pages name Naples Estate Jewelry as the operator; the form's consent version is now 2026-09-01.
-- Added `/shop`, `/showroom`, `/directions`, and `/es` convenience redirects in `netlify.toml`; removed publicly served debug files from the site root.
+- Added `/shop`, `/showroom`, `/directions`, and `/es` convenience redirects in `netlify.toml`; force-404 rules for internal files (`SEO-PLAN.md`, `README-DEPLOY.md`, dev utilities); removed publicly served debug files from the site root.
+- Hero re-framed to match naplesgoldbuyers.com: visible H1 ("Sell Jewelry, Diamonds, Gold & Silver in Naples, Florida"), trust pills, a 3-step "how it works", two CTAs (Call/Text, Get a Photo Estimate), then the shop/trade-in cross-sell. The photo submission form moved out of the hero into its own `#get-estimate` section (after What We Buy). In-page ids must not start with "s" — `sunscroll.js` hijacks `a[href^="#s"]` clicks.
+- Deployed 2026-09-01. Post-deploy checks: all 18 served files byte-match the source, root assets 200, blocked files 404, redirects correct, WebGL background and form verified live.
+
+### Deploy process (lesson from 2026-09-01)
+
+The working folder is not the repo. Changes go into a `staging/` folder that must be a COMPLETE snapshot of the site (10 root files + 10 folders), which is dragged into the GitHub-Desktop repo root with "Replace". The first deploy staged only changed files, the repo root was replaced, and `sunscroll.js`/`logo.webp`/`og-image.png`/`seo.css`/`robots.txt` vanished from production for a short time. See `staging/README-DEPLOY.md`.
+
+### Search engines (done 2026-09-01)
+
+- Google Search Console (domain property): sitemap resubmitted — Success, 8 pages. Coverage: 8 indexed; the 10 "not indexed" are intentional (7 redirect variants, 3 `noindex` legal pages). **Outstanding:** "Request indexing" for `/` and the seven service pages was blocked by the daily quota ("Quota Exceeded") — retry on a later day. Google will recrawl from the sitemap regardless (every URL carries the new `lastmod`).
+- Bing Webmaster Tools: sitemap resubmitted (Processing) and all 8 pages submitted through URL Submission (Success).
 
 ### Off-site follow-ups
-
-- Add naplesjewelrybuyers.com as a property in Google Search Console and Bing Webmaster Tools; request indexing for `/` and the seven service pages; resubmit the sitemap.
 - Confirm showroom hours (Mon–Fri 11–3, Sat 11–4) are current on this site, the Google Business Profile, and Apple Maps, Bing Places, Yelp, Facebook, and Instagram.
 - Align naplesgoldbuyers.com's schema `geo` and `paymentAccepted` values to the main site's (they currently differ slightly).
 - Watch Search Console for 30 days: the home page title now leads with "Sell Jewelry" rather than "Sell Gold", so some "sell gold naples" impressions may shift to naplesgoldbuyers.com. That is intended.
