@@ -16,27 +16,25 @@ Dragging this whole snapshot in restores everything.
    - `og-image.png` — the old "NAPLES JEWELRY BUYERS" card that Google shows
      as the search thumbnail. Dragging does not remove it; delete it by hand.
      (If it is missed, `netlify.toml` force-redirects it to `nej-og.jpg`.)
+   - `logo.webp` — the old gold "NAPLES JEWELRY BUYERS" crest, retired on the
+     owner's say-so 2026-10-03. No page used it. (If it is missed, it is
+     force-redirected to the octopus mark `nej-mark.webp`.)
    - `README-DEPLOY.md` (was pushed by mistake last time)
    - `debug-9e641e.log`, `tablet_debug.png`
 4. Confirm the repo root now contains exactly:
 
-   Files (13): `index.html`, `404.html`, `sitemap.xml`, `robots.txt`,
-   `netlify.toml`, `seo.css`, `sunscroll.js`, `logo.webp`, `nej-mark.webp`,
+   Files (12): `index.html`, `404.html`, `sitemap.xml`, `robots.txt`,
+   `netlify.toml`, `seo.css`, `sunscroll.js`, `nej-mark.webp`,
    `nej-og.jpg`, `favicon.ico`, `icon.png`, `SEO-PLAN.md`
 
    ⚠️ NEW 2026-10-03: `nej-og.jpg` (the Naples Estate Jewelry share image
    Google uses as the search-result thumbnail), `favicon.ico` and `icon.png`
-   (the octopus tab icon). `og-image.png` is RETIRED and no longer in this
-   snapshot — see step 3.
+   (the octopus tab icon). `og-image.png` and `logo.webp` are RETIRED and no
+   longer in this snapshot — see step 3.
 
    ⚠️ `nej-mark.webp` is NEW (2026-09-23) — the Naples Estate Jewelry octopus
    mark used by BOTH the nav lockup and the hero wordmark. If it does not
    travel, the top-left corner and the hero both show a broken image.
-
-   ℹ️ `logo.webp` (the old gold "NAPLES JEWELRY BUYERS" crest, 162 KB) is now
-   referenced by NOTHING — the hero sets its wordmark in type instead. It is
-   kept in the repo deliberately: no page loads it, so it costs nothing, and
-   it is the only copy of that artwork. Delete it only on the owner's say-so.
 
    Folders (10): `accessibility/`, `privacy/`, `terms/`, `sell-gold-naples/`,
    `sell-silver-naples/`, `sell-jewelry-naples/`, `sell-coins-naples/`,
@@ -61,12 +59,15 @@ name that resolves to a competitor's Google profile, see below).
   (`naplesestatejewelry.com/assets/images/pages/og-preview.webp`, 1200×630).
   A new filename, so Google and social caches have to fetch it fresh.
 - `/og-image.png` 301s to `/nej-og.jpg` (forced) for anything still cached.
+- `logo.webp` (old crest, already unused) is removed too; `/logo.webp` 301s to
+  `/nej-mark.webp`. No "Naples Jewelry Buyers" artwork is left on the site.
 - The site had no favicon (Google showed a grey globe). `favicon.ico` and
   `icon.png` are the main site's octopus icon, linked from the home page.
 - Titles, H1, copy and URLs are untouched.
 
 After deploy: `/nej-og.jpg`, `/favicon.ico`, `/icon.png` return 200;
-`/og-image.png` redirects to `/nej-og.jpg`. Then Search Console → URL
+`/og-image.png` redirects to `/nej-og.jpg` and `/logo.webp` to
+`/nej-mark.webp`. Then Search Console → URL
 inspection → `https://naplesjewelrybuyers.com/` → Request indexing. The
 thumbnail and icon change when Google recrawls — days to a few weeks.
 
@@ -109,14 +110,12 @@ sharing one `@id` with the main site).
 ## After Netlify finishes
 
 - `https://naplesjewelrybuyers.com/nej-mark.webp` returns 200 (nav mark) — NEW.
-- `/sunscroll.js` and `/logo.webp` return 200 (background + crest), `/seo.css`
+- `/sunscroll.js` returns 200 (background), `/seo.css`
   returns 200 (service pages styled).
 - `/README-DEPLOY.md`, `/SEO-PLAN.md`, `/debug-9e641e.log` return 404.
 - Netlify → Forms still lists `jewelry-photo-estimate`.
 - The nav reads "Naples Estate Jewelry / JEWELRY BUYERS" on desktop and phone,
   with no broken image; the hero reads octopus / NAPLES / ESTATE JEWELRY, the
   "NAPLES" in gradient gold (not flat) on Chrome, Safari and Firefox.
-- `/logo.webp` still returns 200 but nothing requests it any more — that is
-  expected, not a regression.
 - Search Console: no reindex needed — titles and copy are unchanged. Watch that
   the `/` position for "naples jewelry buyers" stays at ~1 over the next 2 weeks.

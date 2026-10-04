@@ -63,4 +63,4 @@ The working folder is not the repo. Changes go into a `staging/` folder that mus
 
 ### Share image and favicon (2026-10-03)
 
-`og-image.png` (the "NAPLES JEWELRY BUYERS" card Google used as the search thumbnail) is retired; all pages now use `nej-og.jpg`, a copy of the Naples Estate Jewelry share image from the main site, and `/og-image.png` 301s to it. Added `favicon.ico` + `icon.png` (octopus mark). The old PNG and its generator are in `_archive/` in the working folder, never deployed.
+`og-image.png` (the "NAPLES JEWELRY BUYERS" card Google used as the search thumbnail) is retired; all pages now use `nej-og.jpg`, a copy of the Naples Estate Jewelry share image from the main site, and `/og-image.png` 301s to it. Added `favicon.ico` + `icon.png` (octopus mark). `logo.webp` (old gold crest, unused) is retired too and 301s to `nej-mark.webp`. The old images and the generator are in `_archive/` in the working folder, never deployed.

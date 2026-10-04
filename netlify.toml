@@ -32,6 +32,14 @@
   status = 301
   force = true
 
+# The old gold "NAPLES JEWELRY BUYERS" crest was retired 2026-10-03 as well.
+# Any cached request for it gets the Naples Estate Jewelry octopus mark.
+[[redirects]]
+  from = "/logo.webp"
+  to = "/nej-mark.webp"
+  status = 301
+  force = true
+
 # Internal files that live in the publish root but should not be public.
 # force = true is required because the files exist on disk.
 [[redirects]]
