@@ -13,13 +13,21 @@ Dragging this whole snapshot in restores everything.
    onto the repo root. When Windows asks, choose **Replace the files in the
    destination** (and merge folders).
 3. In the repo root, DELETE these if present (they should not be public):
+   - `og-image.png` — the old "NAPLES JEWELRY BUYERS" card that Google shows
+     as the search thumbnail. Dragging does not remove it; delete it by hand.
+     (If it is missed, `netlify.toml` force-redirects it to `nej-og.jpg`.)
    - `README-DEPLOY.md` (was pushed by mistake last time)
    - `debug-9e641e.log`, `tablet_debug.png`
 4. Confirm the repo root now contains exactly:
 
-   Files (11): `index.html`, `404.html`, `sitemap.xml`, `robots.txt`,
+   Files (13): `index.html`, `404.html`, `sitemap.xml`, `robots.txt`,
    `netlify.toml`, `seo.css`, `sunscroll.js`, `logo.webp`, `nej-mark.webp`,
-   `og-image.png`, `SEO-PLAN.md`
+   `nej-og.jpg`, `favicon.ico`, `icon.png`, `SEO-PLAN.md`
+
+   ⚠️ NEW 2026-10-03: `nej-og.jpg` (the Naples Estate Jewelry share image
+   Google uses as the search-result thumbnail), `favicon.ico` and `icon.png`
+   (the octopus tab icon). `og-image.png` is RETIRED and no longer in this
+   snapshot — see step 3.
 
    ⚠️ `nej-mark.webp` is NEW (2026-09-23) — the Naples Estate Jewelry octopus
    mark used by BOTH the nav lockup and the hero wordmark. If it does not
@@ -40,9 +48,30 @@ Dragging this whole snapshot in restores everything.
 
 ## Commit message suggestion
 
-    Lead the brand lockup with Naples Estate Jewelry; keep Naples Jewelry Buyers as the descriptor; fix dead schema logo URL
+    Replace the Naples Jewelry Buyers share image with the Naples Estate Jewelry one; add favicon
 
-## Why this change (2026-09-23)
+## Why this change (2026-10-03)
+
+Google's result for the home page showed a thumbnail reading "NAPLES JEWELRY
+BUYERS" — that was `og-image.png`, the last piece of the old branding (the
+name that resolves to a competitor's Google profile, see below).
+
+- `og:image`, `twitter:image` (home + 7 service pages) and the schema `image`
+  now point to `nej-og.jpg`, a JPG copy of the main site's own share image
+  (`naplesestatejewelry.com/assets/images/pages/og-preview.webp`, 1200×630).
+  A new filename, so Google and social caches have to fetch it fresh.
+- `/og-image.png` 301s to `/nej-og.jpg` (forced) for anything still cached.
+- The site had no favicon (Google showed a grey globe). `favicon.ico` and
+  `icon.png` are the main site's octopus icon, linked from the home page.
+- Titles, H1, copy and URLs are untouched.
+
+After deploy: `/nej-og.jpg`, `/favicon.ico`, `/icon.png` return 200;
+`/og-image.png` redirects to `/nej-og.jpg`. Then Search Console → URL
+inspection → `https://naplesjewelrybuyers.com/` → Request indexing. The
+thumbnail and icon change when Google recrawls — days to a few weeks.
+
+## Why the previous change (2026-09-23)
+
 
 A different company owns an exact-match **"Naples Jewelry Buyers"** Google
 Business Profile (5.0★ / 49 reviews, 11542 Tamiami Trl E, (239) 420-1918,

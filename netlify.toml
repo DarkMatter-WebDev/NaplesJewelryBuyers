@@ -23,6 +23,15 @@
   to = "https://naplesestatejewelry.com/es/sell/naples"
   status = 301
 
+# The old "NAPLES JEWELRY BUYERS" share card was retired 2026-10-03. Anything
+# still requesting it (Google's thumbnail cache, old social shares) gets the
+# Naples Estate Jewelry image. force = true covers a stale copy left in the repo.
+[[redirects]]
+  from = "/og-image.png"
+  to = "/nej-og.jpg"
+  status = 301
+  force = true
+
 # Internal files that live in the publish root but should not be public.
 # force = true is required because the files exist on disk.
 [[redirects]]

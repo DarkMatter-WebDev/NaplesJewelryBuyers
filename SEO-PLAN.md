@@ -60,3 +60,7 @@ The working folder is not the repo. Changes go into a `staging/` folder that mus
 - Confirm showroom hours (Mon–Fri 11–3, Sat 11–4) are current on this site, the Google Business Profile, and Apple Maps, Bing Places, Yelp, Facebook, and Instagram.
 - Align naplesgoldbuyers.com's schema `geo` and `paymentAccepted` values to the main site's (they currently differ slightly).
 - Watch Search Console for 30 days: the home page title now leads with "Sell Jewelry" rather than "Sell Gold", so some "sell gold naples" impressions may shift to naplesgoldbuyers.com. That is intended.
+
+### Share image and favicon (2026-10-03)
+
+`og-image.png` (the "NAPLES JEWELRY BUYERS" card Google used as the search thumbnail) is retired; all pages now use `nej-og.jpg`, a copy of the Naples Estate Jewelry share image from the main site, and `/og-image.png` 301s to it. Added `favicon.ico` + `icon.png` (octopus mark). The old PNG and its generator are in `_archive/` in the working folder, never deployed.
